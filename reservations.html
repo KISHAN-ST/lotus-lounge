@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reserve a table at Lotus Lounge Bar & Kitchen, Mysore Road, Bengaluru. Online reservations via EazyDiner and Zomato.">
+  <title>Reservations | Lotus Lounge Bar & Kitchen</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────── -->
+<nav class="nav scrolled" role="navigation">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-name">Lotus Lounge</span>
+        <span class="nav__logo-tag">Bar &amp; Kitchen</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#about" class="nav__link">About</a></li>
+        <li><a href="menu.html" class="nav__link">Menu</a></li>
+        <li><a href="/#experience" class="nav__link">Experience</a></li>
+        <li><a href="/#reviews" class="nav__link">Reviews</a></li>
+      </ul>
+      <a href="reservations.html" class="nav__reserve" style="border-color:var(--gold); color:var(--black); background:var(--gold);">Reserve</a>
+      <button class="nav__burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav__mobile">
+  <a href="/#about" class="nav__link">About</a>
+  <a href="menu.html" class="nav__link">Menu</a>
+  <a href="/#experience" class="nav__link">Experience</a>
+  <a href="/#reviews" class="nav__link">Reviews</a>
+  <a href="reservations.html" class="nav__link" style="color:var(--gold);">Reserve a Table</a>
+</div>
+
+<!-- ─── Page Hero ───────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container">
+    <p class="t-eyebrow page-hero__eyebrow">Plan Your Visit</p>
+    <h1 class="t-heading page-hero__title" style="color:var(--white);">Reserve a Table</h1>
+    <p class="t-sub page-hero__sub">Fine dining for every occasion</p>
+  </div>
+</div>
+
+<!-- ─── Reservation Content ─────────────────────────────── -->
+<main class="section">
+  <div class="container">
+    <div class="reservation-grid">
+
+      <!-- Form -->
+      <div class="reservation-form" data-reveal="left">
+        <p class="t-eyebrow" style="margin-bottom:28px;">Make a Reservation</p>
+
+        <!-- Online platforms first (prominently) -->
+        <div style="display:flex; gap:12px; margin-bottom:40px; flex-wrap:wrap;">
+          <a
+            href="https://www.eazydiner.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-gold"
+            style="flex:1; justify-content:center; min-width:160px;"
+          >
+            <span>Book on EazyDiner</span>
+          </a>
+          <a
+            href="https://www.zomato.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+            style="flex:1; justify-content:center; min-width:160px;"
+          >
+            <span>Book on Zomato</span>
+          </a>
+        </div>
+
+        <!-- Divider -->
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:36px;">
+          <div style="flex:1; height:1px; background:rgba(255,255,255,0.07);"></div>
+          <span style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">Or enquire directly</span>
+          <div style="flex:1; height:1px; background:rgba(255,255,255,0.07);"></div>
+        </div>
+
+        <!-- Enquiry form -->
+        <form
+          id="reservation-form"
+          action="#"
+          method="POST"
+          novalidate
+          onsubmit="handleFormSubmit(event)"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">First Name *</label>
+              <input class="form-input" type="text" id="fname" name="fname" placeholder="Rahul" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Last Name</label>
+              <input class="form-input" type="text" id="lname" name="lname" placeholder="Sharma" autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number *</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="rahul@email.com" autocomplete="email">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="date">Date *</label>
+              <input class="form-input" type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="time">Preferred Time *</label>
+              <select class="form-select" id="time" name="time" required>
+                <option value="" disabled selected>Select time</option>
+                <option>12:00 PM</option>
+                <option>12:30 PM</option>
+                <option>1:00 PM</option>
+                <option>1:30 PM</option>
+                <option>7:00 PM</option>
+                <option>7:30 PM</option>
+                <option>8:00 PM</option>
+                <option>8:30 PM</option>
+                <option>9:00 PM</option>
+                <option>9:30 PM</option>
+                <option>10:00 PM</option>
+                <option>10:30 PM</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="guests">Number of Guests *</label>
+            <select class="form-select" id="guests" name="guests" required>
+              <option value="" disabled selected>Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+              <option>7–10 Guests</option>
+              <option>10+ Guests (Private Dining)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="occasion">Occasion</label>
+            <select class="form-select" id="occasion" name="occasion">
+              <option value="">No special occasion</option>
+              <option>Birthday</option>
+              <option>Anniversary</option>
+              <option>Corporate Dinner</option>
+              <option>Date Night</option>
+              <option>Family Gathering</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">Special Requests</label>
+            <textarea class="form-textarea" id="notes" name="notes" placeholder="Dietary requirements, seating preferences, allergies…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;">
+            <span>Send Reservation Enquiry</span>
+          </button>
+
+          <p class="form-note">
+            Our team will confirm your reservation within 2 hours during operating hours (12 PM – 12 AM). For private dining or large groups, please call us directly.
+          </p>
+        </form>
+
+        <!-- Success message (hidden) -->
+        <div
+          id="form-success"
+          style="display:none; background:var(--dark); border:1px solid rgba(200,164,90,0.3); padding:32px; text-align:center; margin-top:24px;"
+        >
+          <div style="font-family:var(--font-display); font-size:2rem; color:var(--gold); margin-bottom:12px;">✓</div>
+          <p style="font-family:var(--font-display); font-size:1.3rem; color:var(--white); margin-bottom:8px;">Enquiry Received</p>
+          <p style="font-size:0.875rem; color:var(--muted);">We'll confirm your reservation shortly. See you at Lotus Lounge!</p>
+        </div>
+      </div>
+
+      <!-- Info sidebar -->
+      <div class="reservation-info" data-reveal="right">
+        <div class="info-block">
+          <p class="info-block__title">Location &amp; Hours</p>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <div>
+              <strong>Address</strong>
+              1st Floor, 62/63/1, Mysore Road<br>
+              Anchepalya, Bengaluru<br>
+              Karnataka 560074
+            </div>
+          </div>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            <div>
+              <strong>Operating Hours</strong>
+              Monday – Sunday<br>
+              12:00 PM – 12:00 AM
+            </div>
+          </div>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+            <div>
+              <strong>Nearby Landmark</strong>
+              Next to RR Hospital, Mysore Road
+            </div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <p class="info-block__title">What We Offer</p>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <div>Fine dining &amp; premium bar</div>
+          </div>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <div>Live music on select evenings</div>
+          </div>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M7 4v3M17 4v3"/></svg>
+            <div>Private dining room available</div>
+          </div>
+          <div class="info-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <div>Vegetarian-friendly menu</div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <p class="info-block__title">Book via Platform</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <a
+              href="https://www.eazydiner.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-gold"
+              style="justify-content:center;"
+            >
+              <span>EazyDiner</span>
+            </a>
+            <a
+              href="https://www.zomato.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline"
+              style="justify-content:center;"
+            >
+              <span>Zomato</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Google Maps embed placeholder -->
+        <div style="background:var(--dark); border:1px solid rgba(200,164,90,0.12); overflow:hidden;">
+          <iframe
+            title="Lotus Lounge location map"
+            width="100%"
+            height="220"
+            style="border:0; display:block; filter:grayscale(1) invert(0.85) sepia(0.2);"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=Lotus+Lounge+Bar+Kitchen+Mysore+Road+Bengaluru&zoom=15"
+            allowfullscreen
+          ></iframe>
+          <p style="padding:12px 16px; font-size:0.7rem; color:var(--muted); text-align:center;">
+            <a href="https://maps.google.com/?q=Lotus+Lounge+Bar+Kitchen+Anchepalya+Mysore+Road+Bengaluru" target="_blank" rel="noopener" style="color:var(--gold);">Open in Google Maps →</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- ─── Footer ───────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-name">Lotus Lounge</div>
+        <div class="footer__brand-tag">Bar &amp; Kitchen</div>
+        <p class="footer__desc">Fine dining restobar on Mysore Road, Bengaluru.</p>
+      </div>
+      <div>
+        <p class="footer__heading">Navigate</p>
+        <ul class="footer__list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="reservations.html">Reservations</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__heading">Hours</p>
+        <ul class="footer__list">
+          <li>Daily: 12:00 PM – 12:00 AM</li>
+          <li>Anchepalya, Mysore Road</li>
+          <li>Bengaluru 560074</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 Lotus Lounge Bar &amp; Kitchen. All rights reserved.</p>
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// Reservation form simple handler
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('reservation-form');
+  const success = document.getElementById('form-success');
+  if (!form) return;
+
+  // Basic required field check
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(field => {
+    if (!field.value.trim()) {
+      field.style.borderColor = 'rgba(200, 80, 80, 0.6)';
+      valid = false;
+    } else {
+      field.style.borderColor = '';
+    }
+  });
+
+  if (!valid) return;
+
+  form.style.display = 'none';
+  success.style.display = 'block';
+}
+
+// Set today as min date for date picker
+const dateInput = document.getElementById('date');
+if (dateInput) {
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+}
+</script>
+</body>
+</html>

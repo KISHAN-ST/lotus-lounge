@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lotus Lounge Bar & Kitchen — Fine dining restobar on Mysore Road, Bengaluru. Multi-cuisine experience, premium bar, private dining &amp; live music.">
+  <meta name="theme-color" content="#07060a">
+  <title>Lotus Lounge Bar & Kitchen | Fine Dining Restobar, Mysore Road, Bengaluru</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Lotus Lounge Bar & Kitchen">
+  <meta property="og:description" content="Fine dining restobar on Mysore Road, Bengaluru. Premium multi-cuisine, craft cocktails, private dining & live music.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Lotus Lounge Home">
+        <span class="nav__logo-name">Lotus Lounge</span>
+        <span class="nav__logo-tag">Bar &amp; Kitchen</span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="menu.html" class="nav__link">Menu</a></li>
+        <li><a href="#experience" class="nav__link">Experience</a></li>
+        <li><a href="#reviews" class="nav__link">Reviews</a></li>
+      </ul>
+
+      <a href="reservations.html" class="nav__reserve">Reserve a Table</a>
+
+      <button class="nav__burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav__mobile" role="dialog" aria-label="Mobile menu">
+  <a href="#about" class="nav__link">About</a>
+  <a href="menu.html" class="nav__link">Menu</a>
+  <a href="#experience" class="nav__link">Experience</a>
+  <a href="#reviews" class="nav__link">Reviews</a>
+  <a href="reservations.html" class="nav__link" style="color: var(--gold);">Reserve a Table</a>
+</div>
+
+<!-- ─── Hero ────────────────────────────────────────────── -->
+<section class="hero" aria-label="Welcome to Lotus Lounge">
+  <div class="hero__bg" role="img" aria-label="Elegant restaurant interior"></div>
+  <div class="hero__overlay"></div>
+
+  <div class="container">
+    <div class="hero__content">
+      <p class="hero__label">Fine Dining · Mysore Road · Bengaluru</p>
+      <h1 class="hero__title">
+        Lotus<br>
+        <em>Lounge</em>
+      </h1>
+      <p class="hero__subtitle">Bar &amp; Kitchen — Where every evening becomes an occasion</p>
+      <div class="hero__cta">
+        <a href="reservations.html" class="btn btn-gold">
+          <span>Reserve a Table</span>
+        </a>
+        <a href="menu.html" class="btn btn-outline">
+          <span>Explore Menu</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <div class="hero__scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ─── About ───────────────────────────────────────────── -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="about__inner">
+      <div class="about__img-wrap" data-reveal="left">
+        <img
+          class="about__img"
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop"
+          alt="Lotus Lounge fine dining experience"
+          loading="lazy"
+        >
+        <div class="about__img-frame" aria-hidden="true"></div>
+        <div class="about__rating" aria-label="4.7 star rating">
+          <div class="about__rating-num">4.7</div>
+          <div class="about__rating-label">Google Rating</div>
+        </div>
+      </div>
+
+      <div class="about__text" data-reveal="right">
+        <p class="t-eyebrow about__eyebrow">Our Story</p>
+        <h2 class="t-heading about__heading">A Premier Dining<br><em>Destination</em></h2>
+        <div class="gold-rule" aria-hidden="true"><span></span></div>
+        <p class="t-body about__body">
+          Lotus Lounge Bar &amp; Kitchen is a leading fine dining restobar on Mysore Road, Anchepalya. We bring Bengaluru a premium multi-cuisine experience wrapped in warm, modern ambience — a place where exceptional food, expertly crafted drinks, and gracious hospitality converge into one seamless evening.
+        </p>
+        <div class="about__tags" role="list">
+          <span class="about__tag" role="listitem">North Indian</span>
+          <span class="about__tag" role="listitem">South Indian</span>
+          <span class="about__tag" role="listitem">Live Music</span>
+          <span class="about__tag" role="listitem">Private Dining</span>
+          <span class="about__tag" role="listitem">Premium Bar</span>
+        </div>
+        <a href="menu.html" class="btn btn-gold">
+          <span>View Our Menu</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Pillars / Experience ─────────────────────────────── -->
+<section class="pillars section" id="experience">
+  <div class="container">
+    <div class="pillars__header" data-reveal>
+      <p class="t-eyebrow" style="margin-bottom:16px;">The Experience</p>
+      <h2 class="t-heading pillars__heading">More Than a Meal</h2>
+      <p class="t-body pillars__sub">Three reasons Lotus Lounge is Bengaluru's favourite evening out</p>
+    </div>
+
+    <div class="pillars__grid" data-reveal-group>
+      <!-- Pillar 1: Fine Dining -->
+      <div class="pillar">
+        <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4z"/>
+          <path d="M16 20c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z"/>
+          <path d="M12 34c2.8-3 7-5 12-5s9.2 2 12 5"/>
+        </svg>
+        <h3 class="pillar__title">Fine Dining</h3>
+        <p class="pillar__text">An elevated multi-cuisine menu crafted with the finest ingredients — North Indian flavours, coastal specialities, and chef-driven signatures that surprise and delight.</p>
+      </div>
+
+      <!-- Pillar 2: Live Music -->
+      <div class="pillar">
+        <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M18 36V16l22-4v20"/>
+          <circle cx="14" cy="36" r="4"/>
+          <circle cx="36" cy="32" r="4"/>
+          <path d="M18 24l22-4"/>
+        </svg>
+        <h3 class="pillar__title">Live Music</h3>
+        <p class="pillar__text">Let the evening come alive. Our curated live performances set the perfect atmosphere — soulful evenings that turn dinner into an experience worth remembering.</p>
+      </div>
+
+      <!-- Pillar 3: Private Dining -->
+      <div class="pillar">
+        <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="6" y="10" width="36" height="28" rx="2"/>
+          <path d="M6 18h36M18 10v8M30 10v8"/>
+          <circle cx="24" cy="30" r="4"/>
+        </svg>
+        <h3 class="pillar__title">Private Dining</h3>
+        <p class="pillar__text">Host your celebrations, corporate gatherings, and intimate occasions in our dedicated private dining room — personalised menus, impeccable service, unforgettable moments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Featured Dishes ──────────────────────────────────── -->
+<section class="section" id="menu-preview" style="background: var(--black);">
+  <div class="container">
+    <div class="dishes__header" data-reveal>
+      <h2 class="t-heading dishes__heading" style="color:var(--white);">
+        From the Kitchen
+      </h2>
+      <a href="menu.html" class="dishes__link">Full Menu</a>
+    </div>
+
+    <div class="dishes__grid" data-reveal-group>
+      <!-- Dish 1 -->
+      <div class="dish-card">
+        <div class="dish-card__img-wrap">
+          <img
+            class="dish-card__img"
+            src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80&auto=format&fit=crop"
+            alt="North Indian curry"
+            loading="lazy"
+          >
+        </div>
+        <div class="dish-card__overlay"></div>
+        <div class="dish-card__content">
+          <p class="dish-card__cat">Chef's Special</p>
+          <h3 class="dish-card__name">Dal Makhani &amp; Naan</h3>
+        </div>
+      </div>
+
+      <!-- Dish 2 -->
+      <div class="dish-card">
+        <div class="dish-card__img-wrap">
+          <img
+            class="dish-card__img"
+            src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=600&q=80&auto=format&fit=crop"
+            alt="Craft cocktails at Lotus Lounge"
+            loading="lazy"
+          >
+        </div>
+        <div class="dish-card__overlay"></div>
+        <div class="dish-card__content">
+          <p class="dish-card__cat">Signature Bar</p>
+          <h3 class="dish-card__name">Craft Cocktails</h3>
+        </div>
+      </div>
+
+      <!-- Dish 3 -->
+      <div class="dish-card">
+        <div class="dish-card__img-wrap">
+          <img
+            class="dish-card__img"
+            src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80&auto=format&fit=crop"
+            alt="Tawa Fish — coastal specialty"
+            loading="lazy"
+          >
+        </div>
+        <div class="dish-card__overlay"></div>
+        <div class="dish-card__content">
+          <p class="dish-card__cat">Coastal Favourite</p>
+          <h3 class="dish-card__name">Tawa Fish</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Ambiance Full-Width ──────────────────────────────── -->
+<section class="ambiance" aria-label="Our ambiance">
+  <div class="ambiance__bg" role="img" aria-label="Lotus Lounge bar atmosphere"></div>
+  <div class="ambiance__overlay"></div>
+  <div class="container">
+    <div class="ambiance__content">
+      <p class="t-eyebrow ambiance__eyebrow" data-reveal>The Atmosphere</p>
+      <h2 class="ambiance__heading" data-reveal>
+        Where Bengaluru<br>
+        <em>Comes to Unwind</em>
+      </h2>
+      <p class="ambiance__body t-body" data-reveal style="color: rgba(240,234,216,0.6);">
+        From the golden hour to midnight, Lotus Lounge sets the mood right — warm lighting, curated music, and a bar that never misses. Polite staff, pleasant atmosphere, and a vibe that keeps you coming back.
+      </p>
+      <div data-reveal>
+        <a href="reservations.html" class="btn btn-gold">
+          <span>Book Your Evening</span>
+        </a>
+      </div>
+      <div class="ambiance__stats" data-reveal-group>
+        <div class="stat">
+          <div class="stat__num">4.7★</div>
+          <div class="stat__label">Google Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">148+</div>
+          <div class="stat__label">Reviews</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">12 AM</div>
+          <div class="stat__label">Closes Late</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Reviews ─────────────────────────────────────────── -->
+<section class="reviews section" id="reviews">
+  <div class="container">
+    <div class="reviews__header">
+      <p class="t-eyebrow" style="margin-bottom:28px;" data-reveal>What Our Guests Say</p>
+      <div class="reviews__score" data-reveal>
+        <div class="reviews__num" aria-label="4.7">4.7</div>
+        <div class="reviews__meta">
+          <div class="reviews__stars" aria-label="5 stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="reviews__count">148 reviews on Google</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews__grid" data-reveal-group>
+      <div class="review-card">
+        <p class="review-card__text">Good amenities and a pleasant atmosphere. The staff is polite and the place has only recently opened — looking forward to many more visits.</p>
+        <div class="review-card__author">Verified Guest</div>
+        <div class="review-card__via">via Google Reviews</div>
+      </div>
+      <div class="review-card">
+        <p class="review-card__text">Really good food and service by the staff. Ambience is nice — perfect for a relaxed evening out with friends or a special dinner.</p>
+        <div class="review-card__author">Verified Guest</div>
+        <div class="review-card__via">via Google Reviews</div>
+      </div>
+      <div class="review-card">
+        <p class="review-card__text">The food is soooo tasty. The drinks are amazing — almost got happy tears. Definitely Mysore Road's best-kept secret right now.</p>
+        <div class="review-card__author">Verified Guest</div>
+        <div class="review-card__via">via Google Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Reserve CTA ──────────────────────────────────────── -->
+<section class="reserve-cta section" id="reserve">
+  <div class="container">
+    <p class="t-eyebrow reserve-cta__eyebrow" data-reveal>Plan Your Visit</p>
+    <h2 class="reserve-cta__heading" data-reveal>
+      Reserve Your<br><em>Table Tonight</em>
+    </h2>
+    <p class="reserve-cta__sub t-body" data-reveal>Open daily until midnight · Private dining available · Live music on weekends</p>
+    <div class="reserve-cta__buttons" data-reveal-group>
+      <a href="reservations.html" class="btn btn-gold"><span>Reserve Online</span></a>
+      <a href="https://www.eazydiner.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><span>EazyDiner</span></a>
+      <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><span>Zomato</span></a>
+    </div>
+    <p class="reserve-cta__info" data-reveal>
+      <strong>Address:</strong> 1st Floor, 62/63/1, Mysore Rd, Anchepalya, Bengaluru 560074 &nbsp;·&nbsp;
+      <strong>Hours:</strong> Daily 12 PM – 12 AM
+    </p>
+  </div>
+</section>
+
+<!-- ─── Footer ───────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-name">Lotus Lounge</div>
+        <div class="footer__brand-tag">Bar &amp; Kitchen</div>
+        <p class="footer__desc">
+          A premier fine dining restobar on Mysore Road, Bengaluru — crafting memorable evenings through exceptional food, premium drinks, and warm hospitality since 2025.
+        </p>
+      </div>
+
+      <div>
+        <p class="footer__heading">Navigate</p>
+        <ul class="footer__list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="reservations.html">Reservations</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__heading">Visit Us</p>
+        <ul class="footer__list">
+          <li>1st Floor, 62/63/1<br>Mysore Road, Anchepalya<br>Bengaluru 560074</li>
+          <li style="margin-top:8px;">Daily: 12:00 PM – 12:00 AM</li>
+          <li style="margin-top:8px;">
+            <a href="https://www.eazydiner.com" target="_blank" rel="noopener">EazyDiner Reservations</a>
+          </li>
+          <li>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener">Zomato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 Lotus Lounge Bar &amp; Kitchen. All rights reserved.</p>
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Scripts ──────────────────────────────────────────── -->
+<script src="js/main.js"></script>
+</body>
+</html>
