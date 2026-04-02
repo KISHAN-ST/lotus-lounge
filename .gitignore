@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+
+# Env
+.env
+.env.*
+
+# Python venv
+.venv/
+
+# Build output
+/dist/
+/build/
