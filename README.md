@@ -101,4 +101,4 @@ In Vercel dashboard → Settings → Domains → add your domain.
 
 ---
 
-Built by **Antigravity** · Bengaluru
+
