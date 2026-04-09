@@ -1,112 +1,127 @@
-/* ─── Keyframes ──────────────────────────────────────────── */
-@keyframes scrollPulse {
-  0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-  50% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(36px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes fadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-1.5%, 1.2%);
+  }
+  50% {
+    transform: translate(1.2%, -1.1%);
+  }
+  75% {
+    transform: translate(-0.8%, -1.3%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
-@keyframes lineGrow {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+.page-enter {
+  animation: pageFade 1s ease both;
 }
 
-@keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(200,164,90,0); }
-  50% { box-shadow: 0 0 0 8px rgba(200,164,90,0.08); }
+.hero__label {
+  animation: fadeRise 0.9s ease 0.15s both;
 }
 
-/* ─── Scroll Reveal Base ─────────────────────────────────── */
+.hero__title {
+  animation: fadeRise 1.05s ease 0.3s both;
+}
+
+.hero__subtitle,
+.hero__rule,
+.hero__cta {
+  animation: fadeRise 1.1s ease 0.45s both;
+}
+
+.hero__grain {
+  animation: grainShift 9s steps(4) infinite;
+}
+
 [data-reveal] {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transform: translateY(34px);
+  transition: opacity 0.95s ease, transform 0.95s ease;
 }
-[data-reveal="fade"] {
-  transform: translateY(0);
+
+[data-reveal='left'] {
+  transform: translateX(-34px);
 }
-[data-reveal="left"] {
-  transform: translateX(-40px);
+
+[data-reveal='right'] {
+  transform: translateX(34px);
 }
-[data-reveal="right"] {
-  transform: translateX(40px);
-}
-[data-reveal="scale"] {
-  transform: scale(0.94);
-}
+
 [data-reveal].revealed {
   opacity: 1;
-  transform: translateY(0) translateX(0) scale(1);
+  transform: translate(0, 0);
 }
 
-/* Stagger children */
 [data-reveal-group] > * {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
-}
-[data-reveal-group].revealed > *:nth-child(1) { transition-delay: 0ms; }
-[data-reveal-group].revealed > *:nth-child(2) { transition-delay: 100ms; }
-[data-reveal-group].revealed > *:nth-child(3) { transition-delay: 200ms; }
-[data-reveal-group].revealed > *:nth-child(4) { transition-delay: 300ms; }
-[data-reveal-group].revealed > *:nth-child(5) { transition-delay: 400ms; }
-[data-reveal-group].revealed > * { opacity: 1; transform: translateY(0); }
-
-/* ─── Hero Entrance ──────────────────────────────────────── */
-.hero__label  { animation: fadeUp 1s var(--ease-out) 0.3s both; }
-.hero__title  { animation: fadeUp 1s var(--ease-out) 0.5s both; }
-.hero__subtitle { animation: fadeUp 1s var(--ease-out) 0.7s both; }
-.hero__cta    { animation: fadeUp 1s var(--ease-out) 0.9s both; }
-.hero__scroll { animation: fadeIn 1.2s ease 1.4s both; }
-
-/* ─── Nav entrance ───────────────────────────────────────── */
-.nav { animation: fadeIn 0.8s ease 0.2s both; }
-
-/* ─── Hover microinteractions ────────────────────────────── */
-.dish-card { transition: transform 0.4s var(--ease-out); }
-.dish-card:hover { transform: translateY(-4px); }
-
-.pillar__icon { transition: transform 0.4s var(--ease-out); }
-.pillar:hover .pillar__icon { transform: translateY(-4px); }
-
-.review-card {
-  transition: background 0.3s, transform 0.4s var(--ease-out);
-}
-.review-card:hover {
-  background: var(--surface);
-  transform: translateY(-3px);
+  transform: translateY(26px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-/* ─── Gold line entrance ─────────────────────────────────── */
-.gold-rule.revealed::before {
-  animation: lineGrow 0.8s var(--ease-out) 0.3s both;
-}
-.gold-rule.revealed::after {
-  animation: lineGrow 0.8s var(--ease-out) 0.3s both;
+[data-reveal-group].revealed > * {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ─── Page transitions ───────────────────────────────────── */
-.page-enter {
-  animation: fadeIn 0.6s var(--ease-out) both;
+[data-reveal-group].revealed > *:nth-child(1) {
+  transition-delay: 0s;
 }
 
-/* ─── Reduced motion ─────────────────────────────────────── */
+[data-reveal-group].revealed > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+[data-reveal-group].revealed > *:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+[data-reveal-group].revealed > *:nth-child(4) {
+  transition-delay: 0.24s;
+}
+
+[data-reveal-group].revealed > *:nth-child(5) {
+  transition-delay: 0.32s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
-  [data-reveal], [data-reveal-group] > * {
-    opacity: 1;
-    transform: none;
+
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
