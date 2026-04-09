@@ -148,12 +148,14 @@
   <script src="js/main.js?v=20260409d"></script>
   <script src="js/menu.js?v=20260409d"></script>
   <script>
-    const supabase = window.supabase.createClient(
-      'https://xixrlokrxylsxspqjpvtq.supabase.co',
-      'sb_publishable_tLfX5EE5rjYxAeO0b9X4nw_9LF2iSVg'
-    );
+    const supabase = window.supabaseClientPublic;
 
     async function loadMenu() {
+      if (!supabase) {
+        console.error('Supabase client not initialized on menu page.');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('menu_items')
         .select('*')
