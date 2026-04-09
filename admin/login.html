@@ -46,6 +46,16 @@
       toggle.textContent = show ? 'Hide' : 'Show';
     });
 
+    function withTimeout(promise, ms) {
+      let timer;
+      return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          timer = setTimeout(() => reject(new Error('Network timeout while contacting Supabase.')), ms);
+        })
+      ]).finally(() => clearTimeout(timer));
+    }
+
     async function login() {
       errorText.textContent = '';
       btn.disabled = true;
@@ -54,24 +64,46 @@
       const email = document.querySelector('input[type="email"]').value.trim();
       const pass = document.querySelector('input[type="password"]').value;
 
-      const { data, error } = await sb.auth.signInWithPassword({
-        email,
-        password: pass
-      });
-
-      console.log('DATA:', data);
-      console.log('ERROR:', error);
-
-      if (error || !data?.user) {
-        errorText.textContent = error?.message || 'Invalid credentials';
-        alert(error?.message || 'Invalid credentials');
+      if (!sb?.auth) {
+        const msg = 'Supabase client not initialized. Please refresh and try again.';
+        console.log('ERROR:', msg);
+        errorText.textContent = msg;
+        alert(msg);
         btn.disabled = false;
         btn.textContent = 'Login';
         return;
       }
 
-      alert('Login success');
-      window.location.href = '/admin/dashboard.html';
+      try {
+        const { data, error } = await withTimeout(
+          sb.auth.signInWithPassword({
+            email,
+            password: pass
+          }),
+          12000
+        );
+
+        console.log('DATA:', data);
+        console.log('ERROR:', error);
+
+        if (error || !data?.user) {
+          errorText.textContent = error?.message || 'Invalid credentials';
+          alert(error?.message || 'Invalid credentials');
+          return;
+        }
+
+        alert('Login success');
+        window.location.href = '/admin/dashboard.html';
+      } catch (err) {
+        const message = err?.message || 'Login failed due to network error.';
+        console.log('DATA:', null);
+        console.log('ERROR:', err);
+        errorText.textContent = message;
+        alert(message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
     }
 
     window.login = login;
@@ -82,9 +114,14 @@
     });
 
     (async () => {
-      const { data } = await sb.auth.getUser();
-      if (data?.user) {
-        window.location.href = '/admin/dashboard.html';
+      try {
+        if (!sb?.auth) return;
+        const { data } = await sb.auth.getUser();
+        if (data?.user) {
+          window.location.href = '/admin/dashboard.html';
+        }
+      } catch (err) {
+        console.log('ERROR: getUser failed', err);
       }
     })();
   </script>
