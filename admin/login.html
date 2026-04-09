@@ -61,8 +61,8 @@
       btn.disabled = true;
       btn.textContent = 'Logging in...';
 
-      const email = document.querySelector('input[type="email"]').value.trim();
-      const pass = document.querySelector('input[type="password"]').value;
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('password').value;
 
       if (!sb?.auth) {
         const msg = 'Supabase client not initialized. Please refresh and try again.';
