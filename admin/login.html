@@ -33,7 +33,7 @@
   <script>
     console.log('SUPABASE URL:', SUPABASE_URL);
 
-    const supabase = window.supabaseClient;
+    const sb = window.supabaseClient;
     const form = document.getElementById('login-form');
     const errorText = document.getElementById('login-error');
     const btn = document.getElementById('login-btn');
@@ -54,7 +54,7 @@
       const email = document.querySelector('input[type="email"]').value.trim();
       const pass = document.querySelector('input[type="password"]').value;
 
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await sb.auth.signInWithPassword({
         email,
         password: pass
       });
@@ -80,7 +80,7 @@
     });
 
     (async () => {
-      const { data } = await supabase.auth.getUser();
+      const { data } = await sb.auth.getUser();
       if (data?.user) {
         window.location.href = '/admin/dashboard.html';
       }
