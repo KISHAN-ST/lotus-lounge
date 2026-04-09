@@ -3,7 +3,9 @@
 :root {
   --black: #0a0a0a;
   --off-white: #f5f0e8;
+  --white: #f5f0e8;
   --champagne: #c9a96e;
+  --gold: #c9a96e;
   --champagne-soft: #dbc292;
   --forest: #1a2e1a;
   --charcoal: #121212;
@@ -145,6 +147,7 @@ ul {
   width: 100%;
   z-index: 200;
   height: var(--nav-h);
+  background: rgba(8, 8, 8, 0.45);
   border-bottom: 1px solid transparent;
   transition: background-color 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
 }
@@ -154,6 +157,13 @@ ul {
   border-color: var(--line-soft);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav,
+  .nav.scrolled {
+    background: rgba(8, 8, 8, 0.94);
+  }
 }
 
 .nav__inner {
