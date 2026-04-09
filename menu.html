@@ -3,473 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lotus Lounge Bar & Kitchen Menu — North Indian, South Indian, Starters, Cocktails & more on Mysore Road, Bengaluru.">
+  <meta name="description" content="Explore the Lotus Lounge Bar & Kitchen menu - fine dining plates, chef's recommendations, cocktails and desserts.">
+  <meta property="og:title" content="Lotus Lounge Menu">
+  <meta property="og:description" content="A curated multi-cuisine menu with chef specials, premium bar selections, and elegant desserts.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=1200&q=80&auto=format&fit=crop">
   <title>Menu | Lotus Lounge Bar & Kitchen</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/main.css?v=20260409a">
-  <link rel="stylesheet" href="css/components.css?v=20260409a">
-  <link rel="stylesheet" href="css/animations.css?v=20260409a">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='none' stroke='%23c9a234' stroke-width='3' d='M32 6c6 8 9 15 9 22 0 7-4 11-9 11s-9-4-9-11c0-7 3-14 9-22ZM12 24c7 3 12 8 14 14s-1 11-6 13c-5 2-10-1-13-7-3-6-2-13 5-20ZM52 24c-7 3-12 8-14 14s1 11 6 13c5 2 10-1 13-7 3-6 2-13-5-20Z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/main.css?v=20260409b">
+  <link rel="stylesheet" href="css/components.css?v=20260409b">
+  <link rel="stylesheet" href="css/animations.css?v=20260409b">
 </head>
 <body>
+  <div class="cursor cursor--main" aria-hidden="true"></div>
+  <div class="cursor cursor--trail" aria-hidden="true"></div>
 
-<!-- ─── Navigation ─────────────────────────────────────── -->
-<nav class="nav scrolled" role="navigation">
-  <div class="container">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__logo">
-        <span class="nav__logo-name">Lotus Lounge</span>
-        <span class="nav__logo-tag">Bar &amp; Kitchen</span>
+  <nav class="nav nav--solid" role="navigation" aria-label="Primary">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Lotus Lounge Home">
+        <span>LOTUS LOUNGE</span>
+        <small>BAR &amp; KITCHEN</small>
       </a>
-      <ul class="nav__links">
-        <li><a href="/#about" class="nav__link">About</a></li>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html#about" class="nav__link">About</a></li>
         <li><a href="menu.html" class="nav__link active">Menu</a></li>
-        <li><a href="/#experience" class="nav__link">Experience</a></li>
-        <li><a href="/#reviews" class="nav__link">Reviews</a></li>
+        <li><a href="index.html#experience" class="nav__link">Experience</a></li>
+        <li><a href="index.html#reviews" class="nav__link">Reviews</a></li>
       </ul>
-      <a href="reservations.html" class="nav__reserve">Reserve a Table</a>
-      <button class="nav__burger" aria-label="Open menu">
+      <a href="reservations.html" class="btn btn-pill btn-magnetic"><span>Reserve</span></a>
+      <button class="nav__burger" aria-label="Open Menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+  </nav>
+
+  <div class="nav__mobile" id="mobile-menu" role="dialog" aria-label="Mobile Menu">
+    <a href="index.html#about" class="nav__mobile-link">About</a>
+    <a href="menu.html" class="nav__mobile-link">Menu</a>
+    <a href="index.html#experience" class="nav__mobile-link">Experience</a>
+    <a href="index.html#reviews" class="nav__mobile-link">Reviews</a>
+    <a href="reservations.html" class="nav__mobile-link">Reserve</a>
   </div>
-</nav>
-<div class="nav__mobile">
-  <a href="/#about" class="nav__link">About</a>
-  <a href="menu.html" class="nav__link active">Menu</a>
-  <a href="/#experience" class="nav__link">Experience</a>
-  <a href="/#reviews" class="nav__link">Reviews</a>
-  <a href="reservations.html" class="nav__link" style="color:var(--gold);">Reserve a Table</a>
-</div>
 
-<!-- ─── Page Hero ───────────────────────────────────────── -->
-<div class="page-hero">
-  <div class="container">
-    <p class="t-eyebrow page-hero__eyebrow">Culinary Offerings</p>
-    <h1 class="t-heading page-hero__title" style="color:var(--white);">Our Menu</h1>
-    <p class="t-sub page-hero__sub">Multi-cuisine · Crafted with care</p>
-  </div>
-</div>
-
-<!-- ─── Menu Content ─────────────────────────────────────── -->
-<main class="section" style="padding-top:0;">
-  <div class="container">
-
-    <!-- Tabs -->
-    <div class="menu-tabs" role="tablist">
-      <button class="menu-tab active" data-tab="starters" role="tab" aria-selected="true">Starters</button>
-      <button class="menu-tab" data-tab="north-indian" role="tab" aria-selected="false">North Indian</button>
-      <button class="menu-tab" data-tab="south-indian" role="tab" aria-selected="false">South Indian</button>
-      <button class="menu-tab" data-tab="rice-breads" role="tab" aria-selected="false">Rice &amp; Breads</button>
-      <button class="menu-tab" data-tab="bar" role="tab" aria-selected="false">Bar</button>
-      <button class="menu-tab" data-tab="mocktails" role="tab" aria-selected="false">Mocktails</button>
+  <header class="inner-hero inner-hero--menu">
+    <div class="inner-hero__overlay"></div>
+    <div class="container" data-reveal>
+      <p class="label">Culinary Ledger</p>
+      <h1>Our Menu</h1>
     </div>
+  </header>
 
-    <!-- ── Starters Panel ────────────────────────────────── -->
-    <div id="panel-starters" class="menu-panel active" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">Veg Starters</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Paneer Tikka<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Cottage cheese marinated in spiced yogurt, charcoal grilled</div>
-            </div>
-            <div class="menu-item__price">₹299</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Mushroom Pepper Fry<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Button mushrooms tossed with crushed pepper & aromatics</div>
-            </div>
-            <div class="menu-item__price">₹259</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Crispy Corn<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Sweet corn in a spiced crispy batter, tossed with lime & chilli</div>
-            </div>
-            <div class="menu-item__price">₹219</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Hara Bhara Kebab<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Spinach, peas & potato patties with mint chutney</div>
-            </div>
-            <div class="menu-item__price">₹239</div>
-          </div>
-        </div>
-      </div>
+  <main class="section menu-layout">
+    <div class="container menu-layout__grid">
+      <aside class="menu-sidebar" data-reveal="left">
+        <p>Menu Sections</p>
+        <a href="#north-indian" class="menu-anchor active">North Indian</a>
+        <a href="#south-indian" class="menu-anchor">South Indian</a>
+        <a href="#bar" class="menu-anchor">Bar</a>
+        <a href="#cocktails" class="menu-anchor">Cocktails</a>
+        <a href="#desserts" class="menu-anchor">Desserts</a>
+      </aside>
 
-      <div class="menu-section">
-        <h2 class="menu-section__title">Non-Veg Starters</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Chicken Tikka</div>
-              <div class="menu-item__desc">Tender chicken in classic tandoori marinade, grilled in a clay oven</div>
-            </div>
-            <div class="menu-item__price">₹349</div>
+      <div class="menu-content" data-reveal="right">
+        <section id="north-indian" class="menu-block section-number" data-number="01">
+          <p class="label">North Indian</p>
+          <div class="menu-items-grid">
+            <article class="menu-entry"><h3>Dal Makhani <span class="veg-dot"></span> <em>Chef's Recommendation</em></h3><p>Slow-cooked black lentils in tomato-butter cream.</p><strong>₹299</strong></article>
+            <article class="menu-entry"><h3>Butter Chicken</h3><p>Tandoori chicken in a velvety fenugreek gravy.</p><strong>₹379</strong></article>
+            <article class="menu-entry"><h3>Shahi Paneer <span class="veg-dot"></span></h3><p>Cottage cheese in saffron and cashew gravy.</p><strong>₹329</strong></article>
+            <article class="menu-entry"><h3>Mutton Rogan Josh</h3><p>Kashmiri braise with whole spices and ghee.</p><strong>₹449</strong></article>
           </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Tawa Fish</div>
-              <div class="menu-item__desc">Fresh catch tossed in coastal spices, finished on the tawa</div>
-            </div>
-            <div class="menu-item__price">₹399</div>
+        </section>
+
+        <section id="south-indian" class="menu-block section-number" data-number="02">
+          <p class="label">South Indian</p>
+          <div class="menu-items-grid">
+            <article class="menu-entry"><h3>Chettinad Chicken Curry</h3><p>Tamil-style roast spice gravy, bold and aromatic.</p><strong>₹399</strong></article>
+            <article class="menu-entry"><h3>Fish Moilee</h3><p>Kerala fish in coconut milk and green chilli.</p><strong>₹449</strong></article>
+            <article class="menu-entry"><h3>Masala Dosa <span class="veg-dot"></span></h3><p>Crisp fermented crepe with potato masala.</p><strong>₹189</strong></article>
+            <article class="menu-entry"><h3>Sambar Vada <span class="veg-dot"></span></h3><p>Lentil doughnuts soaked in house sambar.</p><strong>₹169</strong></article>
           </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Mutton Seekh Kebab</div>
-              <div class="menu-item__desc">Minced mutton skewered with herbs, cumin & ginger</div>
-            </div>
-            <div class="menu-item__price">₹429</div>
+        </section>
+
+        <section id="bar" class="menu-block section-number" data-number="03">
+          <p class="label">Bar</p>
+          <div class="menu-items-grid">
+            <article class="menu-entry"><h3>Premium Whisky</h3><p>Curated single malts and reserve blends.</p><strong>From ₹299</strong></article>
+            <article class="menu-entry"><h3>House Wine</h3><p>Red, white and rose by glass or bottle.</p><strong>From ₹399</strong></article>
+            <article class="menu-entry"><h3>Craft Beer</h3><p>Rotating taps and imported bottles.</p><strong>From ₹199</strong></article>
+            <article class="menu-entry"><h3>Reserve Spirits</h3><p>Tequila, gin and aged rum selection.</p><strong>From ₹349</strong></article>
           </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Chicken Lollipop</div>
-              <div class="menu-item__desc">Crispy Indo-Chinese style, served with sweet chilli dip</div>
-            </div>
-            <div class="menu-item__price">₹329</div>
+        </section>
+
+        <section id="cocktails" class="menu-block section-number" data-number="04">
+          <p class="label">Cocktails</p>
+          <div class="menu-items-grid">
+            <article class="menu-entry"><h3>Lotus Garden <em>Chef's Recommendation</em></h3><p>Gin, elderflower, cucumber and lime.</p><strong>₹449</strong></article>
+            <article class="menu-entry"><h3>Midnight Mysore</h3><p>Rum, coffee cold brew and vanilla bitters.</p><strong>₹479</strong></article>
+            <article class="menu-entry"><h3>Spiced Mango Sour</h3><p>Tequila, mango and tajin rim.</p><strong>₹459</strong></article>
+            <article class="menu-entry"><h3>Gold Rush</h3><p>Bourbon, lemon and smoked rosemary.</p><strong>₹499</strong></article>
           </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Prawn Masala Fry</div>
-              <div class="menu-item__desc">Jumbo prawns in a fiery masala reduction, curry leaf garnish</div>
-            </div>
-            <div class="menu-item__price">₹479</div>
+        </section>
+
+        <section id="desserts" class="menu-block section-number" data-number="05">
+          <p class="label">Desserts</p>
+          <div class="menu-items-grid">
+            <article class="menu-entry"><h3>Saffron Phirni <span class="veg-dot"></span></h3><p>Silky rice custard with pistachio crumble.</p><strong>₹189</strong></article>
+            <article class="menu-entry"><h3>Warm Chocolate Terrine <span class="veg-dot"></span></h3><p>Dark chocolate with sea salt caramel.</p><strong>₹249</strong></article>
+            <article class="menu-entry"><h3>Gulab Jamun Brulee <span class="veg-dot"></span></h3><p>Classic syrup-soaked dumpling, brûléed finish.</p><strong>₹219</strong></article>
+            <article class="menu-entry"><h3>Seasonal Sorbet <span class="veg-dot"></span></h3><p>Rotating fruit palate cleanser.</p><strong>₹169</strong></article>
           </div>
-        </div>
+        </section>
       </div>
     </div>
+  </main>
 
-    <!-- ── North Indian Panel ─────────────────────────────── -->
-    <div id="panel-north-indian" class="menu-panel" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">Veg Mains</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Dal Makhani<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Slow-cooked black lentils in a rich tomato-butter-cream sauce</div>
-            </div>
-            <div class="menu-item__price">₹299</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Shahi Paneer<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Cottage cheese in a royal saffron-cream gravy</div>
-            </div>
-            <div class="menu-item__price">₹329</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Palak Paneer<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Cottage cheese in smooth spinach gravy, tempered with spices</div>
-            </div>
-            <div class="menu-item__price">₹299</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Kadai Vegetables<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Seasonal vegetables in a wok-cooked spiced tomato masala</div>
-            </div>
-            <div class="menu-item__price">₹269</div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-section">
-        <h2 class="menu-section__title">Non-Veg Mains</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Butter Chicken</div>
-              <div class="menu-item__desc">Tandoori chicken in a velvety tomato-butter-fenugreek sauce</div>
-            </div>
-            <div class="menu-item__price">₹379</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Mutton Rogan Josh</div>
-              <div class="menu-item__desc">Kashmiri-style braised mutton in whole spice-infused oil</div>
-            </div>
-            <div class="menu-item__price">₹449</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Chicken Kadai</div>
-              <div class="menu-item__desc">Bone-in chicken, capsicum & tomatoes in a rustic masala</div>
-            </div>
-            <div class="menu-item__price">₹369</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Prawn Curry</div>
-              <div class="menu-item__desc">Coastal-style prawns in coconut-tomato gravy, finished with kokum</div>
-            </div>
-            <div class="menu-item__price">₹489</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── South Indian Panel ─────────────────────────────── -->
-    <div id="panel-south-indian" class="menu-panel" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">South Indian Classics</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Chettinad Chicken Curry</div>
-              <div class="menu-item__desc">Bold, aromatic Tamil Nadu preparation with freshly ground spices</div>
-            </div>
-            <div class="menu-item__price">₹399</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Pepper Chicken Fry</div>
-              <div class="menu-item__desc">Dry preparation — tender chicken with cracked pepper & curry leaves</div>
-            </div>
-            <div class="menu-item__price">₹369</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Sambar Vada<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Crispy lentil doughnuts soaked in a slow-cooked tangy sambar</div>
-            </div>
-            <div class="menu-item__price">₹169</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Masala Dosa<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Crispy fermented crepe with spiced potato filling, chutneys & sambar</div>
-            </div>
-            <div class="menu-item__price">₹189</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Fish Moilee</div>
-              <div class="menu-item__desc">Kerala-style fish in a gentle coconut milk curry with green chilli</div>
-            </div>
-            <div class="menu-item__price">₹449</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Rice & Breads Panel ───────────────────────────── -->
-    <div id="panel-rice-breads" class="menu-panel" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">Rice</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Veg Biryani<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Dum-cooked basmati with seasonal vegetables & caramelised onions</div>
-            </div>
-            <div class="menu-item__price">₹299</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Chicken Biryani</div>
-              <div class="menu-item__desc">Dum biryani with tender bone-in chicken, saffron & mint</div>
-            </div>
-            <div class="menu-item__price">₹379</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Mutton Biryani</div>
-              <div class="menu-item__desc">Slow-cooked mutton pieces layered with fragrant basmati</div>
-            </div>
-            <div class="menu-item__price">₹449</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Jeera Rice<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Steamed basmati tempered with cumin & ghee</div>
-            </div>
-            <div class="menu-item__price">₹169</div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-section">
-        <h2 class="menu-section__title">Breads</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Butter Naan<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Leavened tandoor bread, finished with fresh butter</div>
-            </div>
-            <div class="menu-item__price">₹59</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Garlic Naan<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Topped with roasted garlic, butter & coriander</div>
-            </div>
-            <div class="menu-item__price">₹69</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Laccha Paratha<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Layered whole wheat flatbread, flaky & golden</div>
-            </div>
-            <div class="menu-item__price">₹65</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Bar Panel ──────────────────────────────────────── -->
-    <div id="panel-bar" class="menu-panel" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">Signature Cocktails</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Lotus Garden</div>
-              <div class="menu-item__desc">Gin, elderflower, cucumber, basil, lime — light & floral</div>
-            </div>
-            <div class="menu-item__price">₹449</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Midnight Mysore</div>
-              <div class="menu-item__desc">Rum, Coorg coffee cold brew, vanilla, bitters — bold & roasty</div>
-            </div>
-            <div class="menu-item__price">₹479</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Spiced Mango Sour</div>
-              <div class="menu-item__desc">Tequila, fresh mango, tajin rim, egg white foam</div>
-            </div>
-            <div class="menu-item__price">₹459</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Gold Rush</div>
-              <div class="menu-item__desc">Bourbon, honey syrup, lemon, smoked rosemary</div>
-            </div>
-            <div class="menu-item__price">₹499</div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-section">
-        <h2 class="menu-section__title">Spirits &amp; Wines</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Premium Whisky</div>
-              <div class="menu-item__desc">Selection of Indian and imported single malts & blends</div>
-            </div>
-            <div class="menu-item__price">From ₹299</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Craft Beer</div>
-              <div class="menu-item__desc">Rotating draft & bottled selections — domestic and imported</div>
-            </div>
-            <div class="menu-item__price">From ₹199</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">House Wine</div>
-              <div class="menu-item__desc">Red, white & rosé — glass or bottle service available</div>
-            </div>
-            <div class="menu-item__price">From ₹399</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Mocktails Panel ────────────────────────────────── -->
-    <div id="panel-mocktails" class="menu-panel" role="tabpanel">
-      <div class="menu-section">
-        <h2 class="menu-section__title">Mocktails &amp; Cold Drinks</h2>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Virgin Lotus<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Lychee, rose water, lemon, ginger beer — refreshing & floral</div>
-            </div>
-            <div class="menu-item__price">₹199</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Watermelon Mint Cooler<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Fresh watermelon juice, mint, basil seeds, lime</div>
-            </div>
-            <div class="menu-item__price">₹179</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Mango Jaljeera<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Alphonso mango, cumin water, tamarind, black salt</div>
-            </div>
-            <div class="menu-item__price">₹169</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Blue Lagoon<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Blue curacao syrup, lemon, soda — stunning & citrusy</div>
-            </div>
-            <div class="menu-item__price">₹189</div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item__left">
-              <div class="menu-item__name">Cold Brew Coffee<span class="menu-item__veg" aria-label="Vegetarian"></span></div>
-              <div class="menu-item__desc">Coorg single-origin cold brew, served black or with oat milk</div>
-            </div>
-            <div class="menu-item__price">₹199</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Note -->
-    <p style="font-size:0.75rem; color:var(--muted); text-align:center; padding: 40px 0 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px;">
-      All prices are inclusive of applicable taxes. Menu items and prices are subject to change. Please inform our staff of any allergies.
-    </p>
-  </div>
-</main>
-
-<!-- ─── Footer ───────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer__grid">
+  <footer class="footer">
+    <div class="container footer__grid">
       <div>
-        <div class="footer__brand-name">Lotus Lounge</div>
-        <div class="footer__brand-tag">Bar &amp; Kitchen</div>
-        <p class="footer__desc">Fine dining restobar on Mysore Road, Bengaluru.</p>
+        <p class="footer__brand">LOTUS LOUNGE</p>
+        <p class="footer__tagline">Where Every Evening Becomes an Occasion</p>
       </div>
       <div>
-        <p class="footer__heading">Navigate</p>
-        <ul class="footer__list">
+        <p class="footer__heading">Navigation</p>
+        <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="menu.html">Menu</a></li>
           <li><a href="reservations.html">Reservations</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer__heading">Hours</p>
-        <ul class="footer__list">
-          <li>Daily: 12:00 PM – 12:00 AM</li>
-          <li>Anchepalya, Mysore Road</li>
-          <li>Bengaluru 560074</li>
-        </ul>
+        <p class="footer__heading">Visit Us</p>
+        <p>Mysore Road, Anchepalya, Bengaluru</p>
+        <p>Daily · 12:00 PM - 12:00 AM</p>
       </div>
     </div>
-    <div class="footer__bottom">
-      <p class="footer__copy">© 2025 Lotus Lounge Bar &amp; Kitchen. All rights reserved.</p>
-      <div class="footer__socials">
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-      </div>
+    <div class="container footer__bottom">
+      <p>© 2025 LOTUS LOUNGE BAR &amp; KITCHEN. ALL RIGHTS RESERVED.</p>
+      <p>Crafted with intention. Served with love.</p>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="js/main.js?v=20260409a"></script>
-<script src="js/menu.js?v=20260409a"></script>
+  <script src="js/main.js?v=20260409b"></script>
+  <script src="js/menu.js?v=20260409b"></script>
 </body>
 </html>

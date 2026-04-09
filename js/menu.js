@@ -1,27 +1,44 @@
-/* ─── Lotus Lounge — menu.js ─────────────────────────────── */
 'use strict';
 
-(function initMenuTabs() {
-  const tabs   = document.querySelectorAll('.menu-tab');
-  const panels = document.querySelectorAll('.menu-panel');
-  if (!tabs.length) return;
+(function initMenuAnchors() {
+  const links = Array.from(document.querySelectorAll('.menu-anchor'));
+  if (!links.length) return;
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (!id) return;
+      const target = document.querySelector(id);
+      if (!target) return;
 
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-
-      tab.classList.add('active');
-      const panel = document.getElementById(`panel-${target}`);
-      if (panel) {
-        panel.classList.add('active');
-        // Re-trigger reveal for items in new panel
-        panel.querySelectorAll('[data-reveal], [data-reveal-group]').forEach(el => {
-          el.classList.add('revealed');
-        });
-      }
+      e.preventDefault();
+      const offset = (document.querySelector('.nav')?.offsetHeight || 0) + 20;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     });
   });
+
+  const sections = links
+    .map((link) => {
+      const id = link.getAttribute('href');
+      return id ? document.querySelector(id) : null;
+    })
+    .filter(Boolean);
+
+  if (!sections.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        links.forEach((l) => l.classList.remove('active'));
+        const active = document.querySelector('.menu-anchor[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      });
+    },
+    { rootMargin: '-35% 0px -50% 0px' }
+  );
+
+  sections.forEach((section) => observer.observe(section));
 })();
