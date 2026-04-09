@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations | Lotus Lounge Admin</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <p class="brand">Lotus Lounge</p>
+      <nav class="nav-links">
+        <a class="nav-item" data-nav href="/admin/dashboard.html">🏠 Dashboard</a>
+        <a class="nav-item" data-nav href="/admin/menu.html">🍽️ Menu</a>
+        <a class="nav-item" data-nav href="/admin/reservations.html">📅 Reservations</a>
+        <a class="nav-item" data-nav href="/admin/reviews.html">⭐ Reviews</a>
+        <a class="nav-item" data-nav href="/admin/announcements.html">📢 Announcements</a>
+        <a class="nav-item" href="#" data-logout>🚪 Logout</a>
+      </nav>
+      <div class="sidebar-footer">Logged in as<br><span data-user-email>...</span></div>
+    </aside>
+
+    <main class="main">
+      <div class="top-row">
+        <button class="hamburger" data-sidebar-toggle>☰</button>
+        <h1>Reservations</h1>
+      </div>
+
+      <div class="top-row">
+        <div class="tabs" id="status-tabs"></div>
+        <input id="date-filter" type="date" class="btn" style="padding:0.5rem;">
+      </div>
+
+      <section class="surface" id="reservation-stats"></section>
+
+      <section class="surface">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Name</th><th>Phone</th><th>Date</th><th>Time</th><th>Guests</th><th>Occasion</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="reservations-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="details-modal">
+    <div class="modal-card">
+      <div class="modal-head"><h2 style="font-size:1rem;">Reservation Details</h2><button class="btn-icon" id="close-details">✕</button></div>
+      <div id="details-body"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./auth.js"></script>
+  <script>
+    const state = { rows: [], status: 'all' };
+
+    function setupTabs() {
+      const tabs = ['all', 'pending', 'confirmed', 'cancelled'];
+      const wrap = document.getElementById('status-tabs');
+      wrap.innerHTML = tabs.map((t) => '<button class="tab' + (state.status === t ? ' active' : '') + '" data-status="' + t + '">' + t[0].toUpperCase() + t.slice(1) + '</button>').join('');
+      wrap.querySelectorAll('.tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          state.status = tab.dataset.status;
+          setupTabs();
+          render();
+        });
+      });
+    }
+
+    function filteredRows() {
+      const date = document.getElementById('date-filter').value;
+      return state.rows.filter((r) => {
+        const statusOk = state.status === 'all' || String(r.status || 'pending').toLowerCase() === state.status;
+        const dateOk = !date || String(r.date || '').startsWith(date);
+        return statusOk && dateOk;
+      });
+    }
+
+    function renderStats() {
+      const today = new Date().toISOString().slice(0, 10);
+      const rows = filteredRows();
+      const todayCount = state.rows.filter((r) => String(r.date || '').startsWith(today)).length;
+      const pending = rows.filter((r) => String(r.status || '').toLowerCase() === 'pending').length;
+      const confirmed = rows.filter((r) => String(r.status || '').toLowerCase() === 'confirmed').length;
+      const guests = rows.reduce((sum, r) => sum + Number(r.guests || 0), 0);
+      document.getElementById('reservation-stats').innerHTML = '<strong>Today:</strong> ' + todayCount + ' reservations &nbsp;|&nbsp; <strong>Pending:</strong> ' + pending + ' &nbsp;|&nbsp; <strong>Confirmed:</strong> ' + confirmed + ' &nbsp;|&nbsp; <strong>Total Guests:</strong> ' + guests;
+    }
+
+    function render() {
+      renderStats();
+      const tbody = document.getElementById('reservations-table');
+      const rows = filteredRows();
+
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="9" class="empty">📭 No data yet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = rows.map((r, idx) => {
+        const status = String(r.status || 'pending').toLowerCase();
+        const rowClass = status === 'pending' ? 'row-warning' : status === 'confirmed' ? 'row-confirmed' : 'row-cancelled';
+        return '<tr class="' + rowClass + '">' +
+          '<td>' + (idx + 1) + '</td>' +
+          '<td>' + (r.name || '-') + '</td>' +
+          '<td>' + (r.phone || '-') + '</td>' +
+          '<td>' + (r.date || '-') + '</td>' +
+          '<td>' + (r.time || '-') + '</td>' +
+          '<td>' + (r.guests || '-') + '</td>' +
+          '<td>' + (r.occasion || '-') + '</td>' +
+          '<td><select data-status-select="' + r.id + '"><option ' + (status === 'pending' ? 'selected' : '') + '>Pending</option><option ' + (status === 'confirmed' ? 'selected' : '') + '>Confirmed</option><option ' + (status === 'cancelled' ? 'selected' : '') + '>Cancelled</option></select></td>' +
+          '<td><button class="btn-icon" data-view="' + r.id + '">👁️</button><button class="btn-icon" data-delete="' + r.id + '">🗑️</button></td>' +
+          '</tr>';
+      }).join('');
+
+      tbody.querySelectorAll('[data-status-select]').forEach((el) => {
+        el.addEventListener('change', async () => {
+          const id = el.dataset.statusSelect;
+          const status = el.value.toLowerCase();
+          const { error } = await window.AdminAuth.supabase.from('reservations').update({ status }).eq('id', id);
+          if (error) return window.AdminAuth.toast(error.message, 'error', false);
+          window.AdminAuth.toast('Status updated');
+          await fetchRows();
+        });
+      });
+
+      tbody.querySelectorAll('[data-view]').forEach((el) => el.addEventListener('click', () => openDetails(el.dataset.view)));
+      tbody.querySelectorAll('[data-delete]').forEach((el) => el.addEventListener('click', () => deleteRow(el.dataset.delete)));
+    }
+
+    function openDetails(id) {
+      const row = state.rows.find((r) => String(r.id) === String(id));
+      if (!row) return;
+      const body = document.getElementById('details-body');
+      body.innerHTML =
+        '<p><strong>Name:</strong> ' + (row.name || '-') + '</p>' +
+        '<p><strong>Phone:</strong> ' + (row.phone || '-') + '</p>' +
+        '<p><strong>Email:</strong> ' + (row.email || '-') + '</p>' +
+        '<p><strong>Date:</strong> ' + (row.date || '-') + '</p>' +
+        '<p><strong>Time:</strong> ' + (row.time || '-') + '</p>' +
+        '<p><strong>Guests:</strong> ' + (row.guests || '-') + '</p>' +
+        '<p><strong>Occasion:</strong> ' + (row.occasion || '-') + '</p>' +
+        '<p><strong>Requests:</strong> ' + (row.special_requests || row.requests || '-') + '</p>';
+      document.getElementById('details-modal').classList.add('open');
+    }
+
+    async function deleteRow(id) {
+      if (!window.AdminAuth.confirmDanger()) return;
+      const { error } = await window.AdminAuth.supabase.from('reservations').delete().eq('id', id);
+      if (error) return window.AdminAuth.toast(error.message, 'error', false);
+      window.AdminAuth.toast('Reservation deleted');
+      await fetchRows();
+    }
+
+    async function fetchRows() {
+      const { data, error } = await window.AdminAuth.supabase.from('reservations').select('*').order('date', { ascending: false }).order('time', { ascending: false });
+      if (error) return window.AdminAuth.toast(error.message, 'error', false);
+      state.rows = data || [];
+      render();
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await window.AdminAuth.requireAuth();
+      setupTabs();
+      document.getElementById('date-filter').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('date-filter').addEventListener('change', render);
+      document.getElementById('close-details').addEventListener('click', () => document.getElementById('details-modal').classList.remove('open'));
+      await fetchRows();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Redirect | Lotus Lounge</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script>
+    (async () => {
+      const { data } = await window.supabaseClient.auth.getUser();
+      window.location.href = data?.user ? '/admin/dashboard.html' : '/admin/login.html';
+    })();
+  </script>
+</body>
+</html>

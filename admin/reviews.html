@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews | Lotus Lounge Admin</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <p class="brand">Lotus Lounge</p>
+      <nav class="nav-links">
+        <a class="nav-item" data-nav href="/admin/dashboard.html">🏠 Dashboard</a>
+        <a class="nav-item" data-nav href="/admin/menu.html">🍽️ Menu</a>
+        <a class="nav-item" data-nav href="/admin/reservations.html">📅 Reservations</a>
+        <a class="nav-item" data-nav href="/admin/reviews.html">⭐ Reviews</a>
+        <a class="nav-item" data-nav href="/admin/announcements.html">📢 Announcements</a>
+        <a class="nav-item" href="#" data-logout>🚪 Logout</a>
+      </nav>
+      <div class="sidebar-footer">Logged in as<br><span data-user-email>...</span></div>
+    </aside>
+
+    <main class="main">
+      <div class="top-row">
+        <button class="hamburger" data-sidebar-toggle>☰</button>
+        <h1>Reviews</h1>
+        <button class="btn btn-gold" id="add-review">+ Add Review</button>
+      </div>
+
+      <section class="grid-3" id="reviews-grid"></section>
+    </main>
+  </div>
+
+  <div class="modal" id="review-modal">
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="review-modal-title" style="font-size:1rem;">Add Review</h2><button class="btn-icon" id="close-review">✕</button></div>
+      <form id="review-form">
+        <input id="review-id" type="hidden">
+        <div class="field"><label>Reviewer Name</label><input id="reviewer-name" required></div>
+        <div class="field"><label>Rating</label><div id="rating-stars" class="star-row"></div></div>
+        <div class="field"><label>Review Text</label><textarea id="review-text" required></textarea></div>
+        <div class="top-row" style="margin-bottom:0.6rem;"><label>Visible on website</label><button type="button" class="switch active" id="visible-switch"></button></div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="cancel-review">Cancel</button>
+          <button type="submit" class="btn btn-gold" id="save-review">Save Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./auth.js"></script>
+  <script>
+    const state = { reviews: [], rating: 5, visible: true };
+
+    function drawStars() {
+      const wrap = document.getElementById('rating-stars');
+      wrap.innerHTML = Array.from({ length: 5 }).map((_, i) => '<span class="star" data-star="' + (i + 1) + '">' + (i < state.rating ? '★' : '☆') + '</span>').join('');
+      wrap.querySelectorAll('[data-star]').forEach((s) => s.addEventListener('click', () => { state.rating = Number(s.dataset.star); drawStars(); }));
+    }
+
+    function render() {
+      const grid = document.getElementById('reviews-grid');
+      if (!state.reviews.length) {
+        grid.innerHTML = '<div class="empty">📭 No data yet</div>';
+        return;
+      }
+
+      grid.innerHTML = state.reviews.map((r) =>
+        '<article class="review-card">' +
+        '<h3 style="font-size:1rem;">' + (r.reviewer_name || r.name || '-') + '</h3>' +
+        '<div class="star-row">' + '★'.repeat(Number(r.rating || 0)) + '</div>' +
+        '<p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:0.7rem;">' + (r.review_text || r.text || '-') + '</p>' +
+        '<div class="top-row" style="margin:0;">' +
+        '<button class="switch ' + (r.is_visible ? 'active' : '') + '" data-visible="' + r.id + '"></button>' +
+        '<div><button class="btn-icon" data-edit="' + r.id + '">✎</button><button class="btn-icon" data-delete="' + r.id + '">🗑</button></div>' +
+        '</div>' +
+        '</article>'
+      ).join('');
+
+      grid.querySelectorAll('[data-visible]').forEach((el) => {
+        el.addEventListener('click', async () => {
+          const id = el.dataset.visible;
+          const row = state.reviews.find((r) => String(r.id) === String(id));
+          if (!row) return;
+          const { error } = await window.AdminAuth.supabase.from('reviews').update({ is_visible: !row.is_visible }).eq('id', id);
+          if (error) return window.AdminAuth.toast(error.message, 'error', false);
+          await fetchReviews();
+          window.AdminAuth.toast('Visibility updated');
+        });
+      });
+
+      grid.querySelectorAll('[data-edit]').forEach((el) => el.addEventListener('click', () => openModal(el.dataset.edit)));
+      grid.querySelectorAll('[data-delete]').forEach((el) => el.addEventListener('click', () => deleteReview(el.dataset.delete)));
+    }
+
+    async function fetchReviews() {
+      const { data, error } = await window.AdminAuth.supabase.from('reviews').select('*').order('id', { ascending: false });
+      if (error) return window.AdminAuth.toast(error.message, 'error', false);
+      state.reviews = data || [];
+      render();
+    }
+
+    function openModal(id) {
+      document.getElementById('review-form').reset();
+      document.getElementById('review-id').value = '';
+      state.rating = 5;
+      state.visible = true;
+      document.getElementById('visible-switch').classList.add('active');
+      document.getElementById('review-modal-title').textContent = id ? 'Edit Review' : 'Add Review';
+
+      if (id) {
+        const row = state.reviews.find((r) => String(r.id) === String(id));
+        if (row) {
+          document.getElementById('review-id').value = row.id;
+          document.getElementById('reviewer-name').value = row.reviewer_name || row.name || '';
+          document.getElementById('review-text').value = row.review_text || row.text || '';
+          state.rating = Number(row.rating || 5);
+          state.visible = !!row.is_visible;
+          document.getElementById('visible-switch').classList.toggle('active', state.visible);
+        }
+      }
+
+      drawStars();
+      document.getElementById('review-modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('review-modal').classList.remove('open');
+    }
+
+    async function saveReview(e) {
+      e.preventDefault();
+      const id = document.getElementById('review-id').value;
+      const payload = {
+        reviewer_name: document.getElementById('reviewer-name').value.trim(),
+        review_text: document.getElementById('review-text').value.trim(),
+        rating: state.rating,
+        is_visible: state.visible
+      };
+
+      let error;
+      if (id) {
+        ({ error } = await window.AdminAuth.supabase.from('reviews').update(payload).eq('id', id));
+      } else {
+        ({ error } = await window.AdminAuth.supabase.from('reviews').insert(payload));
+      }
+
+      if (error) return window.AdminAuth.toast(error.message, 'error', false);
+
+      window.AdminAuth.toast('Review saved');
+      closeModal();
+      await fetchReviews();
+    }
+
+    async function deleteReview(id) {
+      if (!window.AdminAuth.confirmDanger()) return;
+      const { error } = await window.AdminAuth.supabase.from('reviews').delete().eq('id', id);
+      if (error) return window.AdminAuth.toast(error.message, 'error', false);
+      window.AdminAuth.toast('Review deleted');
+      await fetchReviews();
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await window.AdminAuth.requireAuth();
+      drawStars();
+      await fetchReviews();
+
+      document.getElementById('add-review').addEventListener('click', () => openModal(''));
+      document.getElementById('close-review').addEventListener('click', closeModal);
+      document.getElementById('cancel-review').addEventListener('click', closeModal);
+      document.getElementById('review-form').addEventListener('submit', saveReview);
+      document.getElementById('visible-switch').addEventListener('click', () => {
+        state.visible = !state.visible;
+        document.getElementById('visible-switch').classList.toggle('active', state.visible);
+      });
+    });
+  </script>
+</body>
+</html>

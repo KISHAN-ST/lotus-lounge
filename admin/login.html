@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Lotus Lounge</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="login-page">
+  <section class="login-card">
+    <p class="login-title">Lotus Lounge</p>
+    <p class="login-subtitle">Admin Panel</p>
+
+    <form id="login-form" novalidate>
+      <div class="float-field">
+        <input id="email" type="email" placeholder=" " required>
+        <label for="email">Email</label>
+      </div>
+
+      <div class="float-field password-wrap">
+        <input id="password" type="password" placeholder=" " required>
+        <label for="password">Password</label>
+        <button type="button" class="password-toggle" id="toggle-password">Show</button>
+      </div>
+
+      <p id="login-error" class="error-text"></p>
+      <button id="login-btn" class="btn btn-gold" style="width:100%;" type="submit">Login</button>
+    </form>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script>
+    const form = document.getElementById('login-form');
+    const errorText = document.getElementById('login-error');
+    const btn = document.getElementById('login-btn');
+    const password = document.getElementById('password');
+    const toggle = document.getElementById('toggle-password');
+
+    toggle.addEventListener('click', () => {
+      const show = password.type === 'password';
+      password.type = show ? 'text' : 'password';
+      toggle.textContent = show ? 'Hide' : 'Show';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorText.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+
+      const email = document.getElementById('email').value.trim();
+      const pass = password.value;
+
+      const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+        email,
+        password: pass
+      });
+
+      if (error || !data?.user) {
+        errorText.textContent = 'Invalid credentials';
+        btn.disabled = false;
+        btn.textContent = 'Login';
+        return;
+      }
+
+      window.location.href = '/admin/dashboard.html';
+    });
+
+    (async () => {
+      const { data } = await window.supabaseClient.auth.getUser();
+      if (data?.user) {
+        window.location.href = '/admin/dashboard.html';
+      }
+    })();
+  </script>
+</body>
+</html>

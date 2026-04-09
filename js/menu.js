@@ -1,6 +1,6 @@
 'use strict';
 
-(function initMenuAnchors() {
+function initMenuAnchors() {
   const links = Array.from(document.querySelectorAll('.menu-anchor'));
   if (!links.length) return;
 
@@ -41,4 +41,12 @@
   );
 
   sections.forEach((section) => observer.observe(section));
-})();
+}
+
+window.initMenuAnchorBindings = initMenuAnchors;
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initMenuAnchors);
+} else {
+  initMenuAnchors();
+}
