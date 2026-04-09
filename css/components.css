@@ -35,7 +35,7 @@
   position: relative;
   z-index: 3;
   width: min(100%, 860px);
-  margin-left: clamp(24px, 9vw, 160px);
+  margin-left: clamp(56px, 14vw, 240px);
   padding-bottom: 112px;
 }
 
