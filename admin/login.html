@@ -74,6 +74,8 @@
       window.location.href = '/admin/dashboard.html';
     }
 
+    window.login = login;
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       await login();
