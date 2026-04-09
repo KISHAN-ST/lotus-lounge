@@ -7,28 +7,6 @@
   overflow: hidden;
 }
 
-.announcement-banner {
-  margin-top: var(--nav-h);
-  background: var(--gold);
-  color: #211706;
-  min-height: 2.2rem;
-  padding: 0.4rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.announcement-banner button {
-  border: 0;
-  background: transparent;
-  color: #211706;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -57,12 +35,7 @@
   position: relative;
   z-index: 3;
   width: 100%;
-  min-height: calc(100vh - var(--nav-h));
   padding-bottom: 112px;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  text-align: center;
 }
 
 .hero__kicker {
@@ -94,7 +67,6 @@
   width: 60px;
   height: 1px;
   margin-block: 18px;
-  margin-inline: auto;
   background: var(--gold);
 }
 
@@ -108,7 +80,6 @@
 .hero__cta {
   margin-top: 36px;
   display: flex;
-  justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
 }
@@ -690,65 +661,6 @@
   font-size: 14px;
 }
 
-#menu-container {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.menu-live-item {
-  min-width: 0;
-}
-
-.menu-card {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 180px auto auto auto;
-  gap: 10px;
-  background: linear-gradient(180deg, rgba(22, 22, 20, 0.95), rgba(12, 12, 11, 0.98));
-  border: 1px solid rgba(201, 162, 52, 0.25);
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.menu-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.menu-card h3,
-.menu-card p,
-.menu-card span {
-  padding-inline: 16px;
-}
-
-.menu-card h3 {
-  margin-top: 10px;
-  font-size: 20px;
-}
-
-.menu-card p {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-.menu-card span {
-  color: var(--gold-light);
-  font-family: var(--font-mono);
-  padding-bottom: 16px;
-}
-
-#menu-container .empty {
-  grid-column: 1 / -1;
-  border: 1px dashed rgba(201, 162, 52, 0.35);
-  border-radius: 14px;
-  color: var(--text-muted);
-  padding: 24px;
-  text-align: center;
-}
-
 .reserve-layout {
   padding-top: 92px;
 }
@@ -887,10 +799,6 @@
     grid-template-columns: 1fr;
   }
 
-  #menu-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -911,10 +819,6 @@
 
   .hero__scroll {
     display: none;
-  }
-
-  #menu-container {
-    grid-template-columns: 1fr;
   }
 
   .gallery-grid {

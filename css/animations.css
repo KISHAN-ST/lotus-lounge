@@ -58,23 +58,23 @@
   animation: grainFloat 10s steps(4) infinite;
 }
 
-html.js-ready [data-reveal],
-html.js-ready [data-reveal-group] > * {
+[data-reveal],
+[data-reveal-group] > * {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 1s ease, transform 1s ease;
 }
 
-html.js-ready [data-reveal='left'] {
+[data-reveal='left'] {
   transform: translateX(-40px);
 }
 
-html.js-ready [data-reveal='right'] {
+[data-reveal='right'] {
   transform: translateX(40px);
 }
 
-html.js-ready [data-reveal].revealed,
-html.js-ready [data-reveal-group].revealed > * {
+[data-reveal].revealed,
+[data-reveal-group].revealed > * {
   opacity: 1;
   transform: translate(0, 0);
 }
