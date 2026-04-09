@@ -56,6 +56,15 @@
       ]).finally(() => clearTimeout(timer));
     }
 
+    function normalizeLoginErrorMessage(raw) {
+      const text = String(raw || '').toLowerCase();
+      if (!text) return 'Login failed. Please try again.';
+      if (text.includes('failed to fetch') || text.includes('network') || text.includes('timeout')) {
+        return 'Cannot reach Supabase. Check internet, DNS, firewall, or VPN settings.';
+      }
+      return String(raw);
+    }
+
     async function login() {
       errorText.textContent = '';
       btn.disabled = true;
@@ -87,22 +96,18 @@
         console.log('ERROR:', error);
 
         if (error || !data?.user) {
-          errorText.textContent = error?.message || 'Invalid credentials';
-          alert(error?.message || 'Invalid credentials');
+          const message = normalizeLoginErrorMessage(error?.message || 'Invalid credentials');
+          errorText.textContent = message;
           return;
         }
 
-        alert('Login success');
         window.location.href = '/admin/dashboard.html';
       } catch (err) {
         const rawMessage = err?.message || 'Login failed due to network error.';
-        const message = rawMessage.toLowerCase().includes('failed to fetch')
-          ? 'Cannot reach Supabase. Check internet, DNS, firewall, or VPN settings.'
-          : rawMessage;
+        const message = normalizeLoginErrorMessage(rawMessage);
         console.log('DATA:', null);
         console.log('ERROR:', err);
         errorText.textContent = message;
-        alert(message);
       } finally {
         btn.disabled = false;
         btn.textContent = 'Login';
