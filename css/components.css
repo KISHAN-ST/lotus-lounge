@@ -34,7 +34,8 @@
 .hero__content {
   position: relative;
   z-index: 3;
-  width: 100%;
+  width: min(100%, 860px);
+  margin-left: clamp(24px, 9vw, 160px);
   padding-bottom: 112px;
 }
 
@@ -809,6 +810,11 @@
 }
 
 @media (max-width: 768px) {
+  .hero__content {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .hero__content {
     padding-bottom: 84px;
   }
