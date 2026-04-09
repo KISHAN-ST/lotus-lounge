@@ -95,7 +95,10 @@
         alert('Login success');
         window.location.href = '/admin/dashboard.html';
       } catch (err) {
-        const message = err?.message || 'Login failed due to network error.';
+        const rawMessage = err?.message || 'Login failed due to network error.';
+        const message = rawMessage.toLowerCase().includes('failed to fetch')
+          ? 'Cannot reach Supabase. Check internet, DNS, firewall, or VPN settings.'
+          : rawMessage;
         console.log('DATA:', null);
         console.log('ERROR:', err);
         errorText.textContent = message;
