@@ -487,10 +487,18 @@ h2 {
 
   .nav__burger {
     display: flex;
+    margin-left: auto;
+    justify-self: end;
   }
 
   .nav__inner {
-    grid-template-columns: auto 1fr auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .nav__logo {
+    max-width: calc(100% - 56px);
   }
 
   .footer__grid {
@@ -501,6 +509,15 @@ h2 {
 @media (max-width: 768px) {
   .container {
     width: min(100% - 32px, var(--container));
+  }
+
+  .nav__logo span {
+    font-size: 20px;
+  }
+
+  .nav__logo small {
+    font-size: 9px;
+    letter-spacing: 0.2em;
   }
 
   .section {
