@@ -31,6 +31,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./config.js"></script>
   <script>
+    console.log('SUPABASE URL:', SUPABASE_URL);
+
+    const supabase = window.supabaseClient;
     const form = document.getElementById('login-form');
     const errorText = document.getElementById('login-error');
     const btn = document.getElementById('login-btn');
@@ -43,32 +46,41 @@
       toggle.textContent = show ? 'Hide' : 'Show';
     });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    async function login() {
       errorText.textContent = '';
       btn.disabled = true;
       btn.textContent = 'Logging in...';
 
-      const email = document.getElementById('email').value.trim();
-      const pass = password.value;
+      const email = document.querySelector('input[type="email"]').value.trim();
+      const pass = document.querySelector('input[type="password"]').value;
 
-      const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password: pass
       });
 
+      console.log('DATA:', data);
+      console.log('ERROR:', error);
+
       if (error || !data?.user) {
-        errorText.textContent = 'Invalid credentials';
+        errorText.textContent = error?.message || 'Invalid credentials';
+        alert(error?.message || 'Invalid credentials');
         btn.disabled = false;
         btn.textContent = 'Login';
         return;
       }
 
+      alert('Login success');
       window.location.href = '/admin/dashboard.html';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await login();
     });
 
     (async () => {
-      const { data } = await window.supabaseClient.auth.getUser();
+      const { data } = await supabase.auth.getUser();
       if (data?.user) {
         window.location.href = '/admin/dashboard.html';
       }
