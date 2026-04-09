@@ -9,9 +9,9 @@
   <meta property="og:image" content="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=1200&q=80&auto=format&fit=crop">
   <title>Menu | Lotus Lounge Bar & Kitchen</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='none' stroke='%23c9a234' stroke-width='3' d='M32 6c6 8 9 15 9 22 0 7-4 11-9 11s-9-4-9-11c0-7 3-14 9-22ZM12 24c7 3 12 8 14 14s-1 11-6 13c-5 2-10-1-13-7-3-6-2-13 5-20ZM52 24c-7 3-12 8-14 14s1 11 6 13c5 2 10-1 13-7 3-6 2-13-5-20Z'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/main.css?v=20260409b">
-  <link rel="stylesheet" href="css/components.css?v=20260409b">
-  <link rel="stylesheet" href="css/animations.css?v=20260409b">
+  <link rel="stylesheet" href="css/main.css?v=20260409d">
+  <link rel="stylesheet" href="css/components.css?v=20260409d">
+  <link rel="stylesheet" href="css/animations.css?v=20260409d">
 </head>
 <body>
   <div class="cursor cursor--main" aria-hidden="true"></div>
@@ -63,7 +63,7 @@
         <a href="#desserts" class="menu-anchor">Desserts</a>
       </aside>
 
-      <div class="menu-content" data-reveal="right">
+      <div class="menu-content" id="menu-container" data-reveal="right">
         <section id="north-indian" class="menu-block section-number" data-number="01">
           <p class="label">North Indian</p>
           <div class="menu-items-grid">
@@ -143,7 +143,54 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260409b"></script>
-  <script src="js/menu.js?v=20260409b"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/public-config.js?v=20260409d"></script>
+  <script src="js/main.js?v=20260409d"></script>
+  <script src="js/menu.js?v=20260409d"></script>
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://xixrlokrxylsxspqjpvtq.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpeHJsb2tyeHlseHNwcWpwdnRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NTA1MTksImV4cCI6MjA5MTMyNjUxOX0.alSE8QT_npouUv_qX61yKjO-zyrh2gX6W30dYaJXiu8'
+    );
+
+    async function loadMenu() {
+      const { data, error } = await supabase
+        .from('menu_items')
+        .select('*')
+        .eq('is_available', true)
+        .order('category', { ascending: true });
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      const container = document.getElementById('menu-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      if (!data || !data.length) {
+        container.innerHTML = '<div class="empty">No menu items available yet.</div>';
+        return;
+      }
+
+      data.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'menu-live-item';
+        div.innerHTML = `
+          <div class="menu-card">
+            <img src="${item.image_url || 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=900&q=80&auto=format&fit=crop'}" alt="${item.name || 'Menu item'}" loading="lazy" />
+            <h3>${item.name || ''}</h3>
+            <p>${item.description || ''}</p>
+            <span>${item.price ? `₹${item.price}` : ''}</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    loadMenu();
+  </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 'use strict';
 
+document.documentElement.classList.add('js-ready');
+
 (function initPreloader() {
   const preloader = document.querySelector('.preloader');
   if (!preloader) return;
@@ -107,6 +109,11 @@
     return;
   }
 
+  if (!('IntersectionObserver' in window)) {
+    all.forEach((el) => el.classList.add('revealed'));
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -166,6 +173,8 @@
 })();
 
 (function initReservationForm() {
+  if (document.body?.dataset.cmsReservation === 'true') return;
+
   const form = document.querySelector('#reservation-form');
   const message = document.querySelector('#reservation-message');
   if (!form || !message) return;
