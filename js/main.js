@@ -170,6 +170,8 @@
   const message = document.querySelector('#reservation-message');
   if (!form || !message) return;
 
+  const whatsappNumber = '918861015324';
+
   const dateInput = form.querySelector('#date');
   if (dateInput) {
     dateInput.min = new Date().toISOString().split('T')[0];
@@ -183,7 +185,33 @@
       return;
     }
 
-    message.textContent = 'Reservation request received. Our concierge will confirm shortly.';
+    const name = (form.querySelector('#name')?.value || '').trim();
+    const phone = (form.querySelector('#phone')?.value || '').trim();
+    const date = form.querySelector('#date')?.value || '-';
+    const time = form.querySelector('#time')?.value || '-';
+    const guests = form.querySelector('#guests')?.value || '-';
+    const occasion = form.querySelector('#occasion')?.value || 'No special occasion';
+    const requests = (form.querySelector('#requests')?.value || '').trim() || 'None';
+
+    const whatsappText = [
+      'Hello Lotus Lounge, I would like to reserve a table.',
+      '',
+      'Name: ' + name,
+      'Phone: ' + phone,
+      'Date: ' + date,
+      'Time: ' + time,
+      'Guests: ' + guests,
+      'Occasion: ' + occasion,
+      'Special Requests: ' + requests
+    ].join('\n');
+
+    const whatsappUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappText);
+    const popup = window.open(whatsappUrl, '_blank');
+    if (!popup) {
+      window.location.href = whatsappUrl;
+    }
+
+    message.textContent = 'Opening WhatsApp for booking confirmation...';
     form.reset();
   });
 })();
