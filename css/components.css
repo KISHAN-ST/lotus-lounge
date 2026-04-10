@@ -794,6 +794,15 @@
     gap: 8px;
   }
 
+  .menu-anchor {
+    border: 1px solid rgba(201, 162, 52, 0.25);
+    border-radius: 999px;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1;
+  }
+
   .menu-items-grid,
   .feature-cards,
   .dishes {
@@ -810,6 +819,67 @@
 }
 
 @media (max-width: 768px) {
+  .menu-layout {
+    padding-top: 64px;
+  }
+
+  .menu-layout__grid {
+    gap: 28px;
+  }
+
+  .menu-sidebar {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .menu-sidebar p {
+    display: none;
+  }
+
+  .menu-anchor {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 10px 14px;
+    letter-spacing: 0.08em;
+  }
+
+  .menu-block + .menu-block {
+    margin-top: 40px;
+  }
+
+  .menu-block.section-number::before {
+    display: none;
+  }
+
+  .menu-items-grid {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .menu-entry {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    align-items: start;
+    padding: 12px 0;
+  }
+
+  .menu-entry h3 {
+    font-size: 24px;
+    line-height: 1.05;
+  }
+
+  .menu-entry p {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .menu-entry strong {
+    font-size: 13px;
+  }
+
   .hero__content {
     width: 100%;
     margin-left: 0;
