@@ -883,6 +883,17 @@
   .hero__content {
     width: 100%;
     margin-left: 0;
+    margin-inline: auto;
+    max-width: 640px;
+    text-align: center;
+  }
+
+  .hero__rule {
+    margin-inline: auto;
+  }
+
+  .hero__cta {
+    justify-content: center;
   }
 
   .hero__content {
