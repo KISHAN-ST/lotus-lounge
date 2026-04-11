@@ -266,6 +266,23 @@
   window.addEventListener('resize', handleResize);
 })();
 
+(function initSpecialDishHighlightButtons() {
+  const specialButtons = document.querySelectorAll('.menu-special-btn');
+  if (!specialButtons.length) return;
+
+  specialButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.menu-item--special');
+      if (!card) return;
+
+      const nextState = !card.classList.contains('is-highlighted');
+      card.classList.toggle('is-highlighted', nextState);
+      button.setAttribute('aria-pressed', nextState ? 'true' : 'false');
+      button.textContent = nextState ? 'Highlighted' : 'Highlight Special';
+    });
+  });
+})();
+
 (function initMenuFlipbook() {
   const openFlipbookButton = document.querySelector('#open-flipbook');
   const closeFlipbookButton = document.querySelector('#close-flipbook');
