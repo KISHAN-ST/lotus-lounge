@@ -2,6 +2,7 @@
 
 (function initChefShowcase() {
   const showcase = document.querySelector('#chef-showcase');
+  const cardsRail = document.querySelector('#chef-cards');
   const cards = Array.from(document.querySelectorAll('[data-chef-card]'));
   const completeMenuButton = document.querySelector('#chef-complete-menu');
 
@@ -12,6 +13,9 @@
   let activeIndex = 0;
   let timer = null;
   let paused = false;
+  let scrollRaf = null;
+
+  const isMobile = () => window.innerWidth <= 700;
 
   // Keep a single active card in sync with visual state and mobile scroll.
   const setActive = (index, shouldScroll) => {
@@ -58,7 +62,41 @@
       stopAutoplay();
       setActive(index, true);
     });
+
+    card.addEventListener('touchstart', () => {
+      paused = true;
+      stopAutoplay();
+      setActive(index, false);
+    }, { passive: true });
   });
+
+  if (cardsRail) {
+    cardsRail.addEventListener('scroll', () => {
+      if (!isMobile()) return;
+      if (scrollRaf) window.cancelAnimationFrame(scrollRaf);
+
+      scrollRaf = window.requestAnimationFrame(() => {
+        const railRect = cardsRail.getBoundingClientRect();
+        const targetX = railRect.left + railRect.width * 0.5;
+        let nearestIndex = activeIndex;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          const center = rect.left + rect.width * 0.5;
+          const distance = Math.abs(center - targetX);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = index;
+          }
+        });
+
+        if (nearestIndex !== activeIndex) {
+          setActive(nearestIndex, false);
+        }
+      });
+    }, { passive: true });
+  }
 
   // Pause autoplay while the section is hovered, then resume on exit.
   showcase.addEventListener('mouseenter', () => {
