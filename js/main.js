@@ -170,7 +170,7 @@
   const message = document.querySelector('#reservation-message');
   if (!form || !message) return;
 
-  const whatsappNumber = '918861015324';
+  const whatsappNumber = '919900099877';
 
   const dateInput = form.querySelector('#date');
   if (dateInput) {
