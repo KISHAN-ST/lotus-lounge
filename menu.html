@@ -9,9 +9,9 @@
   <meta property="og:image" content="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=1200&q=80&auto=format&fit=crop">
   <title>Menu | Lotus Lounge Bar & Kitchen</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='none' stroke='%23c9a234' stroke-width='3' d='M32 6c6 8 9 15 9 22 0 7-4 11-9 11s-9-4-9-11c0-7 3-14 9-22ZM12 24c7 3 12 8 14 14s-1 11-6 13c-5 2-10-1-13-7-3-6-2-13 5-20ZM52 24c-7 3-12 8-14 14s1 11 6 13c5 2 10-1 13-7 3-6 2-13-5-20Z'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/main.css?v=20260411e">
-  <link rel="stylesheet" href="css/components.css?v=20260411e">
-  <link rel="stylesheet" href="css/animations.css?v=20260411e">
+  <link rel="stylesheet" href="css/main.css?v=20260411j">
+  <link rel="stylesheet" href="css/components.css?v=20260411j">
+  <link rel="stylesheet" href="css/animations.css?v=20260411j">
 </head>
 <body>
   <div class="cursor cursor--main" aria-hidden="true"></div>
@@ -56,49 +56,56 @@
 
   <main class="section menu-layout">
     <div class="container menu-page-shell">
-      <section class="menu-featured" aria-label="Top Picks">
-        <div class="menu-featured__head">
-          <p class="eyebrow">Top Picks</p>
-          <h2>Chef Curated Highlights</h2>
+      <section class="menu-featured chef-showcase" aria-label="Chef Curated Featured Dishes" id="chef-showcase">
+        <div class="chef-showcase__head">
+          <p class="eyebrow">Chef Curated</p>
+          <h2>From the Kitchen</h2>
+          <p class="chef-showcase__sub">Handpicked signatures - crafted with intention, served with love</p>
         </div>
-        <div class="menu-featured__swipe-prompt" id="featured-swipe-prompt" aria-hidden="true">
-          <span>Swipe to explore</span>
-          <span class="chevrons" aria-hidden="true"><i></i><i></i><i></i></span>
+
+        <div class="chef-showcase__cards" id="chef-cards" role="list">
+          <button type="button" class="chef-card is-active" role="listitem" data-chef-card data-index="0" style="--dish-image:url('assets/menu-pdf/page-1.jpg')" aria-label="Highlight Tandoori Chicken Platter card">
+            <span class="chef-card__overlay" aria-hidden="true"></span>
+            <span class="chef-card__content">
+              <span class="chef-card__label">Special</span>
+              <span class="chef-card__name">Tandoori Chicken Platter</span>
+              <span class="chef-card__desc">Char-smoked signature platter with bold tandoori spice and house mint glaze.</span>
+            </span>
+          </button>
+
+          <button type="button" class="chef-card" role="listitem" data-chef-card data-index="1" style="--dish-image:url('assets/menu-pdf/page-2.jpg')" aria-label="Highlight Butter Chicken card">
+            <span class="chef-card__overlay" aria-hidden="true"></span>
+            <span class="chef-card__content">
+              <span class="chef-card__label">Main Course</span>
+              <span class="chef-card__name">Butter Chicken</span>
+              <span class="chef-card__desc">Silky tomato-makhani gravy finished with butter, cream, and roasted kasuri notes.</span>
+            </span>
+          </button>
+
+          <button type="button" class="chef-card" role="listitem" data-chef-card data-index="2" style="--dish-image:url('assets/menu-pdf/page-3.jpg')" aria-label="Highlight Spl Chicken Biryani card">
+            <span class="chef-card__overlay" aria-hidden="true"></span>
+            <span class="chef-card__content">
+              <span class="chef-card__label">Biryani</span>
+              <span class="chef-card__name">Spl Chicken Biryani</span>
+              <span class="chef-card__desc">Dum-cooked aromatic rice layered with tender chicken and saffron-forward masala.</span>
+            </span>
+          </button>
+
+          <button type="button" class="chef-card" role="listitem" data-chef-card data-index="3" style="--dish-image:url('assets/menu-pdf/page-4.jpg')" aria-label="Highlight Tawa Fish card">
+            <span class="chef-card__overlay" aria-hidden="true"></span>
+            <span class="chef-card__content">
+              <span class="chef-card__label">Coastal</span>
+              <span class="chef-card__name">Tawa Fish</span>
+              <span class="chef-card__desc">Pan-seared catch with coastal spices, curry leaf perfume, and citrus butter finish.</span>
+            </span>
+          </button>
         </div>
-        <div class="menu-featured__viewport" id="featured-viewport">
-          <div class="menu-featured__grid" id="featured-track">
-            <article class="menu-item menu-item--featured menu-item--special"><span class="menu-special">✦ Special</span><p class="menu-item__meta">Tandoori</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Tandoori Chicken Platter</h3><span class="menu-price">₹1159</span></div><button type="button" class="menu-special-btn" aria-pressed="false">Highlight Special</button></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Main Course</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Butter Chicken</h3><span class="menu-price">₹349</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Biryani</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Hyderabadi Chicken Dum Biryani</h3><span class="menu-price">₹349</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Tandoori</p><div class="menu-item__row"><i class="menu-dot menu-dot--veg" aria-hidden="true"></i><h3>Paneer Tikka</h3><span class="menu-price">₹299</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Main Course</p><div class="menu-item__row"><i class="menu-dot menu-dot--veg" aria-hidden="true"></i><h3>Dal Makhani</h3><span class="menu-price">₹249</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">South Indian</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Chicken Ghee Roast</h3><span class="menu-price">₹349</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Biryani</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Prawn Biryani</h3><span class="menu-price">₹449</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Main Course</p><div class="menu-item__row"><i class="menu-dot menu-dot--veg" aria-hidden="true"></i><h3>Paneer Butter Masala</h3><span class="menu-price">₹349</span></div></article>
-            <article class="menu-item menu-item--featured menu-item--special"><span class="menu-special">✦ Special</span><p class="menu-item__meta">Biryani</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Spl Chicken Biryani</h3><span class="menu-price">₹399</span></div><button type="button" class="menu-special-btn" aria-pressed="false">Highlight Special</button></article>
-            <article class="menu-item menu-item--featured menu-item--special"><span class="menu-special">✦ Special</span><p class="menu-item__meta">Dessert</p><div class="menu-item__row"><i class="menu-dot menu-dot--veg" aria-hidden="true"></i><h3>Brownie With Ice Cream</h3><span class="menu-price">₹299</span></div><button type="button" class="menu-special-btn" aria-pressed="false">Highlight Special</button></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Breads</p><div class="menu-item__row"><i class="menu-dot menu-dot--veg" aria-hidden="true"></i><h3>Garlic Naan</h3><span class="menu-price">₹109</span></div></article>
-            <article class="menu-item menu-item--featured"><p class="menu-item__meta">Chinese</p><div class="menu-item__row"><i class="menu-dot menu-dot--nonveg" aria-hidden="true"></i><h3>Chicken 65</h3><span class="menu-price">₹349</span></div></article>
-          </div>
-        </div>
-        <div class="menu-featured__controls" id="featured-controls" aria-label="Featured dish navigation">
-          <button class="featured-nav featured-nav--prev" id="featured-prev" aria-label="Previous featured dish">‹</button>
-          <div class="menu-featured__dots" id="featured-dots" role="tablist" aria-label="Featured dish position"></div>
-          <button class="featured-nav featured-nav--next" id="featured-next" aria-label="Next featured dish">›</button>
+
+        <div class="chef-showcase__cta-wrap">
+          <button type="button" id="chef-complete-menu" class="chef-showcase__cta">View Complete Menu</button>
         </div>
       </section>
 
-      <section class="menu-book-teaser" aria-label="Complete Menu Flipbook">
-        <p class="eyebrow">Complete Menu</p>
-        <h2>Every Dish. Every Occasion.</h2>
-        <p class="sub">From coastal starters to Mughlai mains - browse our full culinary collection.</p>
-        <p class="menu-teaser-more">...and 200+ more dishes</p>
-        <div class="book-preview" role="button" tabindex="0" aria-label="Open full menu flipbook">
-          <img src="assets/menu-pdf/cover.jpg" alt="Lotus Lounge Menu" class="book-cover-thumb" loading="lazy">
-          <div class="book-spine" aria-hidden="true"></div>
-        </div>
-        <button id="open-flipbook" class="btn btn-gold"><span>View Full Menu</span><span class="btn-icon" aria-hidden="true">📖</span></button>
-      </section>
     </div>
   </main>
 
@@ -149,6 +156,6 @@
 
   <script src="js/main.js?v=20260410h"></script>
   <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
-  <script src="js/menu.js?v=20260411h"></script>
+  <script src="js/menu.js?v=20260411i"></script>
 </body>
 </html>

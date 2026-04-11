@@ -1,286 +1,92 @@
 'use strict';
 
-(function initFeaturedSwipeCarousel() {
-  const viewport = document.querySelector('#featured-viewport');
-  const track = document.querySelector('#featured-track');
-  const dotsContainer = document.querySelector('#featured-dots');
-  const prevButton = document.querySelector('#featured-prev');
-  const nextButton = document.querySelector('#featured-next');
-  const swipePrompt = document.querySelector('#featured-swipe-prompt');
+(function initChefShowcase() {
+  const showcase = document.querySelector('#chef-showcase');
+  const cards = Array.from(document.querySelectorAll('[data-chef-card]'));
+  const completeMenuButton = document.querySelector('#chef-complete-menu');
 
-  if (!viewport || !track || !dotsContainer) return;
+  if (!showcase || !cards.length) return;
 
-  const cards = Array.from(track.querySelectorAll('.menu-item--featured'));
-  if (!cards.length) return;
-
-  const SWIPE_PROMPT_KEY = 'lotus-featured-swipe-done';
-  const MOBILE_BREAKPOINT = 700;
-  const RUBBER_BAND_LIMIT = 0.3;
-
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const autoplayMs = 4500;
   let activeIndex = 0;
-  let cardWidth = 0;
-  let cardStep = 0;
-  let maxIndex = 0;
+  let timer = null;
+  let paused = false;
 
-  let pointerDown = false;
-  let isDragging = false;
-  let dragIntent = null;
-  let startX = 0;
-  let startY = 0;
-  let startTranslate = 0;
-  let currentTranslate = 0;
-  let animationFrame = null;
-
-  const isMobile = () => window.innerWidth < MOBILE_BREAKPOINT;
-
-  const getGap = () => {
-    const styles = window.getComputedStyle(track);
-    return parseFloat(styles.columnGap || styles.gap || '0') || 0;
-  };
-
-  const computeMetrics = () => {
-    const firstCard = cards[0];
-    if (!firstCard) return;
-
-    cardWidth = firstCard.getBoundingClientRect().width;
-    cardStep = cardWidth + getGap();
-    maxIndex = Math.max(0, cards.length - 1);
-  };
-
-  const clampIndex = (value) => Math.max(0, Math.min(value, maxIndex));
-
-  const maxTranslate = () => 0;
-  const minTranslate = () => -maxIndex * cardStep;
-
-  const getSnapTranslate = (index) => -index * cardStep;
-
-  const updateControls = () => {
-    const dots = dotsContainer.querySelectorAll('.menu-featured__dot');
-    dots.forEach((dot, index) => {
-      const active = index === activeIndex;
-      dot.classList.toggle('is-active', active);
-      dot.setAttribute('aria-selected', active ? 'true' : 'false');
-      dot.setAttribute('tabindex', active ? '0' : '-1');
-    });
-
-    if (prevButton) prevButton.disabled = activeIndex === 0;
-    if (nextButton) nextButton.disabled = activeIndex === maxIndex;
-  };
-
-  const applyTranslate = (value, withTransition) => {
-    currentTranslate = value;
-    track.style.transition = withTransition ? 'transform 320ms cubic-bezier(0.18, 0.7, 0.2, 1)' : 'none';
-    track.style.transform = 'translate3d(' + value + 'px, 0, 0)';
-  };
-
-  const setIndex = (index, animate) => {
-    activeIndex = clampIndex(index);
-    applyTranslate(getSnapTranslate(activeIndex), animate);
-    updateControls();
-  };
-
-  const hideSwipePrompt = () => {
-    if (!swipePrompt || swipePrompt.dataset.dismissed === 'true') return;
-
-    swipePrompt.dataset.dismissed = 'true';
-    swipePrompt.classList.add('is-fading');
-    window.setTimeout(() => {
-      swipePrompt.classList.remove('is-visible');
-      swipePrompt.classList.remove('is-fading');
-      swipePrompt.style.display = 'none';
-    }, 260);
-
-    try {
-      window.localStorage.setItem(SWIPE_PROMPT_KEY, '1');
-    } catch (_error) {
-      // Ignore storage issues in private mode.
-    }
-  };
-
-  const showSwipePrompt = () => {
-    if (!swipePrompt || !isMobile()) return;
-    let shouldShow = true;
-
-    try {
-      shouldShow = window.localStorage.getItem(SWIPE_PROMPT_KEY) !== '1';
-    } catch (_error) {
-      shouldShow = true;
-    }
-
-    if (!shouldShow) {
-      swipePrompt.style.display = 'none';
-      return;
-    }
-
-    swipePrompt.style.display = 'inline-flex';
-    swipePrompt.classList.add('is-visible');
-  };
-
-  const buildDots = () => {
-    dotsContainer.innerHTML = '';
-    cards.forEach((_, index) => {
-      const button = document.createElement('button');
-      button.className = 'menu-featured__dot';
-      button.type = 'button';
-      button.setAttribute('role', 'tab');
-      button.setAttribute('aria-label', 'Go to featured card ' + (index + 1));
-      button.addEventListener('click', () => setIndex(index, true));
-      dotsContainer.appendChild(button);
-    });
-  };
-
-  const stopDragging = (pointerId) => {
-    pointerDown = false;
-    isDragging = false;
-    dragIntent = null;
-    if (typeof pointerId === 'number' && viewport.hasPointerCapture(pointerId)) {
-      viewport.releasePointerCapture(pointerId);
-    }
-    viewport.classList.remove('is-dragging');
-    track.style.transition = 'transform 320ms cubic-bezier(0.18, 0.7, 0.2, 1)';
-  };
-
-  const onPointerDown = (event) => {
-    if (!isMobile() || event.pointerType === 'mouse') return;
-
-    pointerDown = true;
-    isDragging = false;
-    dragIntent = null;
-    startX = event.clientX;
-    startY = event.clientY;
-    startTranslate = currentTranslate;
-    viewport.setPointerCapture(event.pointerId);
-  };
-
-  const onPointerMove = (event) => {
-    if (!pointerDown || !isMobile()) return;
-
-    const deltaX = event.clientX - startX;
-    const deltaY = event.clientY - startY;
-
-    if (!dragIntent) {
-      const horizontalThreshold = 8;
-      const verticalThreshold = 8;
-      if (Math.abs(deltaX) < horizontalThreshold && Math.abs(deltaY) < verticalThreshold) return;
-      dragIntent = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
-    }
-
-    if (dragIntent === 'vertical') {
-      stopDragging(event.pointerId);
-      return;
-    }
-
-    event.preventDefault();
-
-    if (!isDragging) {
-      isDragging = true;
-      viewport.classList.add('is-dragging');
-      hideSwipePrompt();
-    }
-
-    const maxLeft = maxTranslate();
-    const maxRight = minTranslate();
-    let nextTranslate = startTranslate + deltaX;
-
-    if (nextTranslate > maxLeft) {
-      const overscroll = nextTranslate - maxLeft;
-      const bounded = Math.min(overscroll, cardWidth * RUBBER_BAND_LIMIT);
-      nextTranslate = maxLeft + bounded;
-    }
-
-    if (nextTranslate < maxRight) {
-      const overscroll = maxRight - nextTranslate;
-      const bounded = Math.min(overscroll, cardWidth * RUBBER_BAND_LIMIT);
-      nextTranslate = maxRight - bounded;
-    }
-
-    if (animationFrame) {
-      window.cancelAnimationFrame(animationFrame);
-    }
-
-    animationFrame = window.requestAnimationFrame(() => {
-      applyTranslate(nextTranslate, false);
-    });
-  };
-
-  const onPointerUp = (event) => {
-    if (!pointerDown) return;
-
-    if (viewport.hasPointerCapture(event.pointerId)) {
-      viewport.releasePointerCapture(event.pointerId);
-    }
-
-    const movedBy = currentTranslate - startTranslate;
-    const threshold = Math.max(38, cardWidth * 0.14);
-
-    if (dragIntent === 'horizontal' && Math.abs(movedBy) > threshold) {
-      if (movedBy < 0) {
-        setIndex(activeIndex + 1, true);
-      } else {
-        setIndex(activeIndex - 1, true);
+  // Keep a single active card in sync with visual state and mobile scroll.
+  const setActive = (index, shouldScroll) => {
+    activeIndex = (index + cards.length) % cards.length;
+    cards.forEach((card, cardIndex) => {
+      const active = cardIndex === activeIndex;
+      card.classList.toggle('is-active', active);
+      card.setAttribute('aria-pressed', active ? 'true' : 'false');
+      if (active && shouldScroll && window.innerWidth <= 700) {
+        card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
       }
-    } else {
-      setIndex(activeIndex, true);
-    }
-
-    stopDragging(event.pointerId);
+    });
   };
 
-  const onPointerCancel = () => {
-    if (!pointerDown) return;
-    setIndex(activeIndex, true);
-    stopDragging();
+  const stopAutoplay = () => {
+    if (!timer) return;
+    window.clearInterval(timer);
+    timer = null;
   };
 
-  const bindControls = () => {
-    if (prevButton) prevButton.addEventListener('click', () => setIndex(activeIndex - 1, true));
-    if (nextButton) nextButton.addEventListener('click', () => setIndex(activeIndex + 1, true));
-
-    viewport.addEventListener('pointerdown', onPointerDown);
-    viewport.addEventListener('pointermove', onPointerMove, { passive: false });
-    viewport.addEventListener('pointerup', onPointerUp);
-    viewport.addEventListener('pointercancel', onPointerCancel);
-    viewport.addEventListener('pointerleave', onPointerCancel);
+  const startAutoplay = () => {
+    if (timer || paused || reducedMotion) return;
+    timer = window.setInterval(() => {
+      setActive(activeIndex + 1, true);
+    }, autoplayMs);
   };
 
-  const handleResize = () => {
-    computeMetrics();
-    if (!isMobile()) {
-      track.style.transition = '';
-      track.style.transform = '';
-      dotsContainer.innerHTML = '';
-      if (swipePrompt) {
-        swipePrompt.classList.remove('is-visible');
-        swipePrompt.style.display = 'none';
-      }
-      return;
-    }
+  // Card-level interactions should immediately take control of the active state.
+  cards.forEach((card, index) => {
+    card.addEventListener('mouseenter', () => {
+      paused = true;
+      stopAutoplay();
+      setActive(index, false);
+    });
 
-    buildDots();
-    showSwipePrompt();
-    setIndex(activeIndex, false);
-  };
+    card.addEventListener('focus', () => {
+      paused = true;
+      stopAutoplay();
+      setActive(index, false);
+    });
 
-  bindControls();
-  handleResize();
-  window.addEventListener('resize', handleResize);
-})();
-
-(function initSpecialDishHighlightButtons() {
-  const specialButtons = document.querySelectorAll('.menu-special-btn');
-  if (!specialButtons.length) return;
-
-  specialButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.menu-item--special');
-      if (!card) return;
-
-      const nextState = !card.classList.contains('is-highlighted');
-      card.classList.toggle('is-highlighted', nextState);
-      button.setAttribute('aria-pressed', nextState ? 'true' : 'false');
-      button.textContent = nextState ? 'Highlighted' : 'Highlight Special';
+    card.addEventListener('click', () => {
+      paused = true;
+      stopAutoplay();
+      setActive(index, true);
     });
   });
+
+  // Pause autoplay while the section is hovered, then resume on exit.
+  showcase.addEventListener('mouseenter', () => {
+    paused = true;
+    stopAutoplay();
+  });
+
+  showcase.addEventListener('mouseleave', () => {
+    paused = false;
+    startAutoplay();
+  });
+
+  showcase.addEventListener('focusout', (event) => {
+    if (showcase.contains(event.relatedTarget)) return;
+    paused = false;
+    startAutoplay();
+  });
+
+  if (completeMenuButton) {
+    completeMenuButton.addEventListener('click', () => {
+      if (typeof window.openMenuFlipbook === 'function') {
+        window.openMenuFlipbook();
+      }
+    });
+  }
+
+  setActive(0, false);
+  startAutoplay();
 })();
 
 (function initMenuFlipbook() {
@@ -294,7 +100,7 @@
   const prevPageButton = document.querySelector('#prev-page');
   const bookPreview = document.querySelector('.book-preview');
 
-  if (!openFlipbookButton || !closeFlipbookButton || !flipbookOverlay || !flipbookContainer) return;
+  if (!closeFlipbookButton || !flipbookOverlay || !flipbookContainer) return;
 
   const menuPages = [
     'assets/menu-pdf/cover.jpg',
@@ -340,7 +146,7 @@
       maxWidth: 500,
       minHeight: 400,
       maxHeight: 700,
-      showCover: true,
+      showCover: !isMobile,
       mobileScrollSupport: true,
       useMouseEvents: true,
       drawShadow: true,
@@ -377,6 +183,8 @@
     }
   };
 
+  window.openMenuFlipbook = openFlipbook;
+
   const closeFlipbook = () => {
     if (!flipbookOverlay) return;
 
@@ -385,7 +193,9 @@
     document.body.style.overflow = '';
   };
 
-  openFlipbookButton.addEventListener('click', openFlipbook);
+  if (openFlipbookButton) {
+    openFlipbookButton.addEventListener('click', openFlipbook);
+  }
 
   if (bookPreview) {
     bookPreview.addEventListener('click', openFlipbook);
