@@ -43,6 +43,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -51,7 +52,7 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.8;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body.nav-open {

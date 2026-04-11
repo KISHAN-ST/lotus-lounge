@@ -1764,6 +1764,8 @@ body.cursor-enabled .flipbook-overlay a {
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 6px;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
     padding-bottom: 8px;
     gap: 10px;
     padding-inline: 2px;

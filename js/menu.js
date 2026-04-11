@@ -17,6 +17,12 @@
 
   const isMobile = () => window.innerWidth <= 700;
 
+  const scrollCardIntoRail = (card) => {
+    if (!cardsRail || !card) return;
+    const targetLeft = Math.max(0, card.offsetLeft - 8);
+    cardsRail.scrollTo({ left: targetLeft, behavior: 'smooth' });
+  };
+
   // Keep a single active card in sync with visual state and mobile scroll.
   const setActive = (index, shouldScroll) => {
     activeIndex = (index + cards.length) % cards.length;
@@ -25,7 +31,7 @@
       card.classList.toggle('is-active', active);
       card.setAttribute('aria-pressed', active ? 'true' : 'false');
       if (active && shouldScroll && window.innerWidth <= 700) {
-        card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        scrollCardIntoRail(card);
       }
     });
   };
