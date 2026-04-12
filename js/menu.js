@@ -19,8 +19,19 @@
 
   const scrollCardIntoRail = (card) => {
     if (!cardsRail || !card) return;
-    const targetLeft = Math.max(0, card.offsetLeft - 8);
-    cardsRail.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    const isHorizontalRail = cardsRail.scrollWidth > cardsRail.clientWidth + 4;
+
+    if (isHorizontalRail) {
+      const targetLeft = Math.max(0, card.offsetLeft - 8);
+      cardsRail.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      return;
+    }
+
+    const showcaseRect = showcase.getBoundingClientRect();
+    const showcaseVisible = showcaseRect.bottom > window.innerHeight * 0.15 && showcaseRect.top < window.innerHeight * 0.85;
+    if (!showcaseVisible) return;
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
   };
 
   // Keep a single active card in sync with visual state and mobile scroll.
