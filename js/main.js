@@ -6,7 +6,7 @@
 
   window.setTimeout(() => {
     preloader.classList.add('loaded');
-  }, 1500);
+  }, 420);
 })();
 
 (function initNav() {
