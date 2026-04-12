@@ -158,14 +158,14 @@
   if (!closeFlipbookButton || !flipbookOverlay || !flipbookContainer) return;
 
   const menuPages = [
-    'assets/menu-pdf/cover.jpg',
-    'assets/menu-pdf/page-1.jpg',
-    'assets/menu-pdf/page-2.jpg',
-    'assets/menu-pdf/page-3.jpg',
-    'assets/menu-pdf/page-4.jpg',
-    'assets/menu-pdf/page-5.jpg',
-    'assets/menu-pdf/page-6.jpg',
-    'assets/menu-pdf/back-cover.jpg'
+    'assets/menu/1.jpg',
+    'assets/menu/2.jpg',
+    'assets/menu/3.jpg',
+    'assets/menu/4.jpg',
+    'assets/menu/5.jpg',
+    'assets/menu/6.jpg',
+    'assets/menu/7.jpg',
+    'assets/menu/8.jpg'
   ];
 
   let flipBook = null;

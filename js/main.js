@@ -291,3 +291,58 @@
   window.addEventListener('resize', onScroll);
   updateVisibility();
 })();
+
+(function initExperienceVideoGate() {
+  const trigger = document.querySelector('[data-exp-video-trigger="true"]');
+  const overlay = document.querySelector('#exp-video-overlay');
+  const video = document.querySelector('#exp-main-1-video');
+  const skip = document.querySelector('#exp-video-skip');
+
+  if (!trigger || !overlay || !video || !skip) return;
+
+  const destination = 'experience.html';
+  let redirected = false;
+
+  const redirectToExperience = () => {
+    if (redirected) return;
+    redirected = true;
+    window.location.href = destination;
+  };
+
+  const openOverlay = () => {
+    redirected = false;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('exp-video-open');
+
+    // User click opens the overlay, so enable sound explicitly for this playback.
+    video.muted = false;
+    video.volume = 1;
+
+    try {
+      video.currentTime = 0;
+    } catch (error) {
+      // Ignore seek errors and continue playback attempt.
+    }
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        redirectToExperience();
+      });
+    }
+  };
+
+  trigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    openOverlay();
+  });
+
+  skip.addEventListener('click', () => {
+    video.pause();
+    redirectToExperience();
+  });
+
+  video.addEventListener('ended', redirectToExperience);
+  video.addEventListener('error', redirectToExperience);
+})();

@@ -135,7 +135,7 @@
       <div class="hero__cta" data-reveal-group>
         <a class="btn btn-gold btn-magnetic" href="reservations.html"><span>Reserve a Table</span></a>
         <a class="btn btn-ghost btn-magnetic" href="menu.html?v=20260411a"><span>Explore Menu</span></a>
-        <a class="btn btn-pill btn-magnetic" href="experience.html"><span>Experience</span></a>
+        <a class="btn btn-pill btn-magnetic" href="experience.html" data-exp-video-trigger="true"><span>Experience</span></a>
       </div>
     </div>
 
@@ -331,6 +331,19 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260412i"></script>
+  <div class="exp-video-overlay" id="exp-video-overlay" aria-hidden="true">
+    <button class="exp-video-overlay__skip" id="exp-video-skip" type="button" aria-label="Skip video and continue">Skip</button>
+    <video
+      class="exp-video-overlay__media"
+      id="exp-main-1-video"
+      preload="metadata"
+      playsinline
+      webkit-playsinline
+    >
+      <source src="assets/exp-main-1.MP4" type="video/mp4">
+    </video>
+  </div>
+
+  <script src="js/main.js?v=20260412j"></script>
 </body>
 </html>
