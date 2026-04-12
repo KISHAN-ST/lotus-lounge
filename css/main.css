@@ -402,11 +402,15 @@ body.exp-video-open {
 }
 
 .exp-video-overlay__media {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   object-position: center;
   background: #000;
+  filter: brightness(1.5) contrast(1.15) saturate(1.08);
+  z-index: 1;
 }
 
 .exp-video-overlay__skip {
