@@ -409,6 +409,22 @@
   object-position: center 46%;
 }
 
+.gallery-grid figure:nth-child(5) img {
+  object-position: center 48%;
+}
+
+.gallery-grid figure:nth-child(6) img {
+  object-position: center 44%;
+}
+
+.gallery-grid figure:nth-child(7) img {
+  object-position: center 50%;
+}
+
+.gallery-grid figure:nth-child(8) img {
+  object-position: center 42%;
+}
+
 .gallery-grid figure:hover img {
   filter: brightness(0.85);
   transform: scale(1.04);
@@ -1807,6 +1823,22 @@ body.cursor-enabled .flipbook-overlay a {
 
   .gallery-grid figure:nth-child(4) img {
     object-position: center 44%;
+  }
+
+  .gallery-grid figure:nth-child(5) img {
+    object-position: center 52%;
+  }
+
+  .gallery-grid figure:nth-child(6) img {
+    object-position: center 46%;
+  }
+
+  .gallery-grid figure:nth-child(7) img {
+    object-position: center 56%;
+  }
+
+  .gallery-grid figure:nth-child(8) img {
+    object-position: center 40%;
   }
 
   .inner-hero--menu {
