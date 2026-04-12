@@ -240,6 +240,11 @@
 
   window.openMenuFlipbook = openFlipbook;
 
+  const shouldOpenFullMenu = new URLSearchParams(window.location.search).get('open') === 'fullmenu';
+  if (shouldOpenFullMenu) {
+    window.setTimeout(openFlipbook, 180);
+  }
+
   const closeFlipbook = () => {
     if (!flipbookOverlay) return;
 
