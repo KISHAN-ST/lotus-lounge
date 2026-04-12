@@ -170,9 +170,11 @@
 
   const whatsappNumber = '919900099877';
   const autoText = 'Hello Lotus Lounge, I would like to enquire about table availability and offers.';
-  const exampleText = 'Eg: Hi Lotus Lounge, I want to reserve a table for tonight at 8:00 PM for 4 guests.';
   const storageKey = 'lotusWaCtaHintShown';
   const whatsappUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(autoText);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'wa-cta-wrap';
 
   const cta = document.createElement('a');
   cta.className = 'wa-cta';
@@ -180,23 +182,27 @@
   cta.target = '_blank';
   cta.rel = 'noopener noreferrer';
   cta.setAttribute('aria-label', 'Inquire on WhatsApp');
-  cta.innerHTML = [
-    '<span class="wa-cta__hint" aria-hidden="true">' + exampleText + '</span>',
-    '<span class="wa-cta__icon" aria-hidden="true">',
-    '<svg viewBox="0 0 24 24" focusable="false"><path d="M20.5 3.5A11 11 0 0 0 3.6 17l-1.2 3.9 4-1.2A11 11 0 1 0 20.5 3.5Zm-8.6 17.4a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.3.7.7-2.3-.2-.3a9.1 9.1 0 1 1 6.7 3.4Zm5-6.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.1-.4.2-.7 0c-2-.9-3.2-2.7-3.5-3.1s0-.5.1-.7c.2-.2.4-.5.5-.7.2-.2.2-.4.3-.6.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.5s1 3 1.1 3.2c.2.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.8 2-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.6-.3Z" fill="currentColor"></path></svg>',
-    '</span>',
-    '<span class="wa-cta__label">WhatsApp Inquiry</span>'
+  cta.innerHTML = '<span class="wa-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20.5 3.5A11 11 0 0 0 3.6 17l-1.2 3.9 4-1.2A11 11 0 1 0 20.5 3.5Zm-8.6 17.4a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.3.7.7-2.3-.2-.3a9.1 9.1 0 1 1 6.7 3.4Zm5-6.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.1-.4.2-.7 0c-2-.9-3.2-2.7-3.5-3.1s0-.5.1-.7c.2-.2.4-.5.5-.7.2-.2.2-.4.3-.6.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.5s1 3 1.1 3.2c.2.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.8 2-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.6-.3Z" fill="currentColor"></path></svg></span>';
+
+  const preview = document.createElement('aside');
+  preview.className = 'wa-chat-pop';
+  preview.innerHTML = [
+    '<p class="wa-chat-pop__title">Example Chat</p>',
+    '<p class="wa-chat-pop__bubble wa-chat-pop__bubble--user">Hi Lotus Lounge, table for 4 at 8:00 PM today?</p>',
+    '<p class="wa-chat-pop__bubble wa-chat-pop__bubble--brand">Yes, available. Please share your name and contact number.</p>'
   ].join('');
 
-  document.body.appendChild(cta);
+  wrap.appendChild(cta);
+  wrap.appendChild(preview);
+  document.body.appendChild(wrap);
 
   if (sessionStorage.getItem(storageKey)) return;
 
   sessionStorage.setItem(storageKey, '1');
   window.setTimeout(() => {
-    cta.classList.add('is-peek');
+    wrap.classList.add('is-peek');
     window.setTimeout(() => {
-      cta.classList.remove('is-peek');
+      wrap.classList.remove('is-peek');
     }, 4200);
   }, 1400);
 })();
