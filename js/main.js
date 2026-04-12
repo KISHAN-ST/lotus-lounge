@@ -253,7 +253,7 @@
       window.location.href = whatsappUrl;
     }
 
-    message.textContent = 'Opening WhatsApp for booking confirmation...';
+    message.textContent = 'Thanks for reserving with Lotus Lounge. We will reach out shortly to confirm your booking.';
     form.reset();
   });
 })();
@@ -296,9 +296,10 @@
   const trigger = document.querySelector('[data-exp-video-trigger="true"]');
   const overlay = document.querySelector('#exp-video-overlay');
   const video = document.querySelector('#exp-main-1-video');
+  const mute = document.querySelector('#exp-video-mute');
   const skip = document.querySelector('#exp-video-skip');
 
-  if (!trigger || !overlay || !video || !skip) return;
+  if (!trigger || !overlay || !video || !skip || !mute) return;
 
   const destination = 'experience.html';
   let redirected = false;
@@ -307,6 +308,13 @@
     if (redirected) return;
     redirected = true;
     window.location.href = destination;
+  };
+
+  const syncMuteState = () => {
+    const isMuted = video.muted;
+    mute.textContent = isMuted ? 'Unmute' : 'Mute';
+    mute.setAttribute('aria-pressed', String(isMuted));
+    mute.setAttribute('aria-label', isMuted ? 'Unmute intro video' : 'Mute intro video');
   };
 
   const openOverlay = () => {
@@ -318,6 +326,7 @@
     // User click opens the overlay, so enable sound explicitly for this playback.
     video.muted = false;
     video.volume = 1;
+    syncMuteState();
 
     try {
       video.currentTime = 0;
@@ -341,6 +350,11 @@
   skip.addEventListener('click', () => {
     video.pause();
     redirectToExperience();
+  });
+
+  mute.addEventListener('click', () => {
+    video.muted = !video.muted;
+    syncMuteState();
   });
 
   video.addEventListener('ended', redirectToExperience);

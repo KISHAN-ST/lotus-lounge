@@ -10,7 +10,7 @@
 .hero__bg {
   position: absolute;
   inset: 0;
-  background: url('../assets/main-opt.jpg') center / cover no-repeat;
+  background: url('../assets/main.jpg') center / cover no-repeat;
   background-position: center 34%;
   transform: scale(1.08);
 }
@@ -77,6 +77,14 @@
   font-style: italic;
   font-size: clamp(28px, 3vw, 42px);
   color: rgba(247, 242, 232, 0.92);
+}
+
+.hero__timings {
+  margin-top: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: rgba(232, 201, 109, 0.86);
 }
 
 .hero__cta {
@@ -552,7 +560,7 @@
   inset: 0;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.85)),
-    url('../assets/photos/reserve-bg-opt.jpg') center / cover no-repeat;
+    url('../assets/main.jpg') center / cover no-repeat;
   background-position: center 54%;
   opacity: 0.62;
 }
@@ -599,16 +607,16 @@
 }
 
 .inner-hero--menu {
-  background: url('../assets/photos/hero-menu-opt.jpg') center / cover no-repeat;
+  background: url('../assets/experience-7.JPG') center / cover no-repeat;
   background-position: center 42%;
 }
 
 .inner-hero--reserve {
-  background: url('../assets/photos/hero-reserve-opt.jpg') center / cover no-repeat;
+  background: url('../assets/experience-6.JPG') center / cover no-repeat;
   background-position: center 50%;
 }
 .inner-hero--experience {
-  background-image: url('../assets/photos/hero-experience-opt.jpg');
+  background-image: url('../assets/experience-1.JPG');
   background-position: center 40%;
 }
 

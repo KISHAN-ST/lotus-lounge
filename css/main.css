@@ -413,10 +413,16 @@ body.exp-video-open {
   z-index: 1;
 }
 
-.exp-video-overlay__skip {
+.exp-video-overlay__controls {
   position: absolute;
   top: max(12px, env(safe-area-inset-top));
   right: max(12px, env(safe-area-inset-right));
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.exp-video-overlay__control {
   min-height: 30px;
   padding: 0 10px;
   border: 1px solid rgba(247, 242, 232, 0.72);
@@ -428,10 +434,9 @@ body.exp-video-open {
   font-size: 10px;
   line-height: 1;
   cursor: pointer;
-  z-index: 2;
 }
 
-.exp-video-overlay__skip:hover {
+.exp-video-overlay__control:hover {
   border-color: var(--gold-light);
   color: var(--gold-light);
 }
