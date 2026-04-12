@@ -215,3 +215,37 @@
     form.reset();
   });
 })();
+
+(function initSignatureMobileColorReveal() {
+  const cards = Array.from(document.querySelectorAll('.menu-preview .dish-card'));
+  if (!cards.length) return;
+
+  const updateVisibility = () => {
+    const viewportTop = window.scrollY;
+    const viewportBottom = viewportTop + window.innerHeight;
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardTop = window.scrollY + rect.top;
+      const cardBottom = cardTop + rect.height;
+      const visibleHeight = Math.min(cardBottom, viewportBottom) - Math.max(cardTop, viewportTop);
+      const visibleRatio = Math.max(0, visibleHeight) / Math.max(1, rect.height);
+
+      card.classList.toggle('is-visible', visibleRatio > 0.35);
+    });
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateVisibility();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateVisibility();
+})();
