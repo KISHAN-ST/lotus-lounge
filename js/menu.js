@@ -240,12 +240,19 @@
 
   window.openMenuFlipbook = openFlipbook;
 
-  const shouldOpenFullMenu = new URLSearchParams(window.location.search).get('open') === 'fullmenu';
+  const params = new URLSearchParams(window.location.search);
+  const shouldOpenFullMenu = params.get('open') === 'fullmenu';
+  const returnTo = params.get('return') || 'index.html';
   if (shouldOpenFullMenu) {
     window.setTimeout(openFlipbook, 180);
   }
 
   const closeFlipbook = () => {
+    if (shouldOpenFullMenu) {
+      window.location.href = returnTo;
+      return;
+    }
+
     if (!flipbookOverlay) return;
 
     flipbookOverlay.classList.add('hidden');
