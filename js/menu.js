@@ -157,16 +157,7 @@
 
   if (!closeFlipbookButton || !flipbookOverlay || !flipbookContainer) return;
 
-  const menuPages = [
-    'assets/menu/1.jpg',
-    'assets/menu/2.jpg',
-    'assets/menu/3.jpg',
-    'assets/menu/4.jpg',
-    'assets/menu/5.jpg',
-    'assets/menu/6.jpg',
-    'assets/menu/7.jpg',
-    'assets/menu/8.jpg'
-  ];
+  const menuPages = Array.from({ length: 20 }, (_, i) => 'assets/menu/' + String(i + 1) + '.jpg');
 
   let flipBook = null;
 
